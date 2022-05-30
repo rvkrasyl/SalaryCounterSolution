@@ -22,4 +22,10 @@ namespace SalaryCounter.Domain
         public const int WorkerSalaryPerHour = 600;
 
     }
+    public enum Roles
+    {
+        manager,
+        worker,
+        freelancer,
+    }
 }

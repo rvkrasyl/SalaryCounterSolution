@@ -11,12 +11,14 @@ namespace SalaryCounter.Domain
     {
         public string Passport { get; }
         public string Name { get; }
+        public Roles Role { get; }
         public decimal SalaryPerHour { get; }
         public List<DailyReport> DailyReports { get; }
-        public Employee (string passportId, string name, List<DailyReport> dailyReports, decimal salaryPerHour)
+        public Employee (string passportId, string name, Roles role, List<DailyReport> dailyReports, decimal salaryPerHour)
         {
             Passport = passportId;
             Name = name;
+            Role = role;
             SalaryPerHour = salaryPerHour;
             DailyReports = dailyReports;
         }

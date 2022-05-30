@@ -4,7 +4,7 @@ namespace SalaryCounter.Domain
 {
     public class Worker : FullTimeEmployee
     {
-        public Worker(string passportId, string name, List<DailyReport> dailyReports) : base(passportId, name, dailyReports, WorkerSalaryPerHour, WorkerSalaryPerHour * MonthlyWorkHours)
+        public Worker(string passportId, string name, List<DailyReport> dailyReports) : base(passportId, name, Roles.worker, dailyReports, WorkerSalaryPerHour, WorkerSalaryPerHour * MonthlyWorkHours)
         {
 
         }
