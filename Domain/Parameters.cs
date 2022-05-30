@@ -15,11 +15,13 @@ namespace SalaryCounter.Domain
         /// <summary>
         /// Managers Salary for every working hour in uah
         /// </summary>
-        public const int ManagerSalaryPerHour = 1000;
+        public const int ManagerSalaryPerHour = 1250;
+        public const int ManaferOvertimeBonus = 20000;
         /// <summary>
         /// Managers Salary for every working hour in uah
         /// </summary>
-        public const int WorkerSalaryPerHour = 600;
+        public const int WorkerSalaryPerHour = 750;
+        public const byte NormalDayWorkTime = 8;
 
     }
     public enum Roles

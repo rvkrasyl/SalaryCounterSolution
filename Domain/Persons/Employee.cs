@@ -45,5 +45,27 @@ namespace SalaryCounter.Domain
             Console.WriteLine("Succesfully added!");
             Thread.Sleep(200);
         }
+        public virtual void GetReportForPeriod(DateTime fromDate, DateTime toDate, bool isMounthly = false)
+        { }
+        public void GetReportForDay(DateTime day)
+        {
+            GetReportForPeriod(day, day, false);
+        }
+        public void GetReportForWeek(DateTime FromDate)
+        {
+            GetReportForPeriod(FromDate, FromDate.AddDays(7), false);
+        }
+        public void GetReportForMonth(int month)
+        {
+            if (month < DateTime.Now.Month)
+            {
+                Console.WriteLine("You try to get report about future month;");
+                return;
+            }
+            string date = $"01,{month},{DateTime.Now.Year}";
+            int daysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, month);
+            DateTime.TryParse(date, out DateTime day);
+            GetReportForPeriod(day, day.AddDays(daysInCurrentMonth-1), true);
+        }
     }
 }

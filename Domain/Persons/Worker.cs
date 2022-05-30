@@ -9,7 +9,7 @@ namespace SalaryCounter.Domain
 
         }
 
-        public virtual void GetReportForPeriod(DateTime fromDate, DateTime toDate, bool isMounthly = false)
+        public override void GetReportForPeriod(DateTime fromDate, DateTime toDate, bool isMounthly = false)
         {
             if (toDate < fromDate)
             {
@@ -33,13 +33,13 @@ namespace SalaryCounter.Domain
                 {
                     foreach (var report in employeeReport)
                     {
-                        if (8 >= report.WorkedHours)
+                        if (NormalDayWorkTime >= report.WorkedHours)
                         {
                             todaysSalary = report.WorkedHours * WorkerSalaryPerHour;
                         }
                         else
                         {
-                            todaysSalary = (8 * WorkerSalaryPerHour) + ((report.WorkedHours - 8) * WorkerSalaryPerHour * 2); // x2 bonus for overtime hours
+                            todaysSalary = (NormalDayWorkTime * WorkerSalaryPerHour) + ((report.WorkedHours - NormalDayWorkTime) * WorkerSalaryPerHour * 2); // x2 bonus for overtime hours
                         }
                         periodSalary += todaysSalary;
                         Console.WriteLine($"{report.Date:d} you worked for {report.WorkedHours} hours and earned {todaysSalary} uah");
@@ -61,26 +61,5 @@ namespace SalaryCounter.Domain
                 Console.WriteLine(new string('-', 70));
             }
         }
-        public void GetReportForDay(DateTime day)
-        {
-            GetReportForPeriod(day, day, false);
-        }
-        public void GetReportForWeek(DateTime FromDate)
-        {
-            GetReportForPeriod(FromDate, FromDate.AddDays(7), false);
-        }
-        public void GetReportForMonth(int month)
-        {
-            if (month < DateTime.Now.Month)
-            {
-                Console.WriteLine("Ypu try to get report about future month;");
-                return;
-            }
-            string date = $"01,{month},{DateTime.Now.Year}";
-            int daysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, month);
-            DateTime.TryParse(date, out DateTime day);
-            GetReportForPeriod(day, day.AddDays(daysInCurrentMonth), true);
-        }
-
     }
 }

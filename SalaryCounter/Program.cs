@@ -11,7 +11,6 @@ using SalaryCounter.Persistance;
 
 List<DailyReport> dailyReports = new List<DailyReport>()
 {
-    new DailyReport(DateTime.Now.AddDays(-28), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
     new DailyReport(DateTime.Now.AddDays(-27), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
     new DailyReport(DateTime.Now.AddDays(-26), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
     new DailyReport(DateTime.Now.AddDays(-25), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
@@ -33,11 +32,9 @@ List<DailyReport> dailyReports = new List<DailyReport>()
     new DailyReport(DateTime.Now.AddDays(-9), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
     new DailyReport(DateTime.Now.AddDays(-8), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
     new DailyReport(DateTime.Now.AddDays(-7), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-
-
-
-
 };
-Worker grisha = new Worker("MO50896213", "Grigory Zavodniy", dailyReports);
-grisha.GetReportForPeriod(DateTime.Now.AddDays(-28), DateTime.Now);
+Manager grisha = new Manager("MO50896213", "Grigory Zavodniy", dailyReports);
+//grisha.GetReportForPeriod(DateTime.Now.AddDays(-28), DateTime.Now);
+
+grisha.GetReportForMonth(5);
 
