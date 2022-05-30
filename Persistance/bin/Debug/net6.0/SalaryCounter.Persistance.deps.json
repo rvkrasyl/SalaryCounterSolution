@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "SalaryCounter.Persistance/1.0.0": {
+        "dependencies": {
+          "SalaryCounter.Domain": "1.0.0"
+        },
+        "runtime": {
+          "SalaryCounter.Persistance.dll": {}
+        }
+      },
+      "SalaryCounter.Domain/1.0.0": {
+        "runtime": {
+          "SalaryCounter.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SalaryCounter.Persistance/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SalaryCounter.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
