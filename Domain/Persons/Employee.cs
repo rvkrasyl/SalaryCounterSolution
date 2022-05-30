@@ -40,7 +40,7 @@ namespace SalaryCounter.Domain
                     "\nIf you worked for more than 11 hours per day - please contact to your manager for approval");
                 return;
             }
-            DailyReport report = new DailyReport(date, Passport, Name, workHours, comment);
+            DailyReport report = new DailyReport(date, Passport, Name, Role, workHours, comment);
             DailyReports.Add(report);
             Console.WriteLine("Succesfully added!");
             Thread.Sleep(200);
