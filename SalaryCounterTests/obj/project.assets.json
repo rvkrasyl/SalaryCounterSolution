@@ -3920,11 +3920,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\SalaryCounterTests\\SalaryCounterTests.csproj",
+      "projectUniqueName": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\SalaryCounterTests\\SalaryCounterTests.csproj",
       "projectName": "SalaryCounterTests",
-      "projectPath": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\SalaryCounterTests\\SalaryCounterTests.csproj",
+      "projectPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\SalaryCounterTests\\SalaryCounterTests.csproj",
       "packagesPath": "C:\\Users\\iamdn\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\SalaryCounterTests\\obj\\",
+      "outputPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\SalaryCounterTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\iamdn\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3941,11 +3941,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Domain\\Domain.csproj"
+            "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\Domain.csproj"
             },
-            "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Persistance\\Persistance.csproj": {
-              "projectPath": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Persistance\\Persistance.csproj"
+            "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Persistance\\Persistance.csproj": {
+              "projectPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Persistance\\Persistance.csproj"
             }
           }
         }

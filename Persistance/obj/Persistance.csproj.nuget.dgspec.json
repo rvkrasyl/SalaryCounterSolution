@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Persistance\\Persistance.csproj": {}
+    "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Persistance\\Persistance.csproj": {}
   },
   "projects": {
-    "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Domain\\Domain.csproj": {
+    "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\Domain.csproj",
         "projectName": "SalaryCounter.Domain",
-        "projectPath": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Domain\\Domain.csproj",
+        "projectPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\iamdn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Domain\\obj\\",
+        "outputPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\iamdn\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -58,14 +58,14 @@
         }
       }
     },
-    "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Persistance\\Persistance.csproj": {
+    "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Persistance\\Persistance.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Persistance\\Persistance.csproj",
+        "projectUniqueName": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Persistance\\Persistance.csproj",
         "projectName": "SalaryCounter.Persistance",
-        "projectPath": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Persistance\\Persistance.csproj",
+        "projectPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Persistance\\Persistance.csproj",
         "packagesPath": "C:\\Users\\iamdn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Persistance\\obj\\",
+        "outputPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Persistance\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\iamdn\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -82,8 +82,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Domain\\Domain.csproj"
+              "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\Domain.csproj"
               }
             }
           }

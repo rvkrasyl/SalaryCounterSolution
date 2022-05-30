@@ -3,9 +3,21 @@ using SalaryCounter;
 using SalaryCounter.Domain;
 using SalaryCounter.Persistance;
 
-Console.ForegroundColor = ConsoleColor.DarkBlue;
-Console.WriteLine("\t\tWelcome to SoftDevelopment_SalaryCounter.");
-Console.ResetColor();
-Console.Write("Please enter your Possport ID to continue:");
-string id = Console.ReadLine();
+//Console.ForegroundColor = ConsoleColor.DarkBlue;
+//Console.WriteLine("\t\tWelcome to SoftDevelopment_SalaryCounter.");
+//Console.ResetColor();
+//Console.Write("Please enter your Passport ID to continue:");
+//string id = Console.ReadLine();
+
+List<DailyReport> dailyReports = new List<DailyReport>()
+{
+    new DailyReport(DateTime.Now.AddDays(-9), "MO50896213", "Grigory Zavodniy", 10, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-5), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-2), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-1), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now, "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-3), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+};
+Worker grisha = new Worker("MO50896213", "Grigory Zavodniy", dailyReports);
+grisha.ShowMySalary(DateTime.Now.AddDays(-10), DateTime.Now);
 

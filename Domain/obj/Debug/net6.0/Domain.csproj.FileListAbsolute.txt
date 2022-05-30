@@ -10,3 +10,15 @@ C:\Users\iamdn\source\repos\Domain\obj\Debug\net6.0\SalaryCounter.Domain.dll
 C:\Users\iamdn\source\repos\Domain\obj\Debug\net6.0\refint\SalaryCounter.Domain.dll
 C:\Users\iamdn\source\repos\Domain\obj\Debug\net6.0\SalaryCounter.Domain.pdb
 C:\Users\iamdn\source\repos\Domain\obj\Debug\net6.0\ref\SalaryCounter.Domain.dll
+C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\Domain\bin\Debug\net6.0\SalaryCounter.Domain.deps.json
+C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\Domain\bin\Debug\net6.0\SalaryCounter.Domain.dll
+C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\Domain\bin\Debug\net6.0\SalaryCounter.Domain.pdb
+C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\Domain\obj\Debug\net6.0\Domain.csproj.AssemblyReference.cache
+C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\Domain\obj\Debug\net6.0\SalaryCounter.Domain.dll
+C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\Domain\obj\Debug\net6.0\refint\SalaryCounter.Domain.dll
+C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\Domain\obj\Debug\net6.0\SalaryCounter.Domain.pdb
+C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\Domain\obj\Debug\net6.0\ref\SalaryCounter.Domain.dll

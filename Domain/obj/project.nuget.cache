@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pRetAhzk5NjbEhN9w1H3Rjloru459I9roAQKJYvXwP5cHIiDciIi6/NJhqEBq9k70sdBucKz63FHGLAOSEPzvw==",
+  "dgSpecHash": "1TLsdtKQk1T68aG/qcjDZQAqwVT7mjbsHsqWTPdH2E4TwKaBPfD2BH/b1mvmWOjrZatPeHnfXXvu/QRNuvgnTw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Domain\\Domain.csproj",
+  "projectFilePath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

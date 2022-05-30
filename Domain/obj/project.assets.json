@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Domain\\Domain.csproj",
+      "projectUniqueName": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\Domain.csproj",
       "projectName": "SalaryCounter.Domain",
-      "projectPath": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Domain\\Domain.csproj",
+      "projectPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\Domain.csproj",
       "packagesPath": "C:\\Users\\iamdn\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\iamdn\\source\\repos\\SalaryCOunterSolution\\Domain\\obj\\",
+      "outputPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\iamdn\\AppData\\Roaming\\NuGet\\NuGet.Config",
