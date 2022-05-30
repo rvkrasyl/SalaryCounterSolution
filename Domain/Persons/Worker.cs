@@ -9,7 +9,7 @@ namespace SalaryCounter.Domain
 
         }
 
-        public void GetReportForPeriod(DateTime fromDate, DateTime toDate, bool isMounthly = false)
+        public virtual void GetReportForPeriod(DateTime fromDate, DateTime toDate, bool isMounthly = false)
         {
             if (toDate < fromDate)
             {
@@ -41,7 +41,6 @@ namespace SalaryCounter.Domain
                         {
                             todaysSalary = (8 * WorkerSalaryPerHour) + ((report.WorkedHours - 8) * WorkerSalaryPerHour * 2); // x2 bonus for overtime hours
                         }
-                        todaysSalary = report.WorkedHours * WorkerSalaryPerHour;
                         periodSalary += todaysSalary;
                         Console.WriteLine($"{report.Date:d} you worked for {report.WorkedHours} hours and earned {todaysSalary} uah");
                     }
@@ -69,6 +68,18 @@ namespace SalaryCounter.Domain
         public void GetReportForWeek(DateTime FromDate)
         {
             GetReportForPeriod(FromDate, FromDate.AddDays(7), false);
+        }
+        public void GetReportForMonth(int month)
+        {
+            if (month < DateTime.Now.Month)
+            {
+                Console.WriteLine("Ypu try to get report about future month;");
+                return;
+            }
+            string date = $"01,{month},{DateTime.Now.Year}";
+            int daysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, month);
+            DateTime.TryParse(date, out DateTime day);
+            GetReportForPeriod(day, day.AddDays(daysInCurrentMonth), true);
         }
 
     }
