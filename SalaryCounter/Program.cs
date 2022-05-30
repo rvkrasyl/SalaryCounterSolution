@@ -11,18 +11,33 @@ using SalaryCounter.Persistance;
 
 List<DailyReport> dailyReports = new List<DailyReport>()
 {
-    new DailyReport(DateTime.Now.AddDays(-9), "MO50896213", "Grigory Zavodniy", 10, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-5), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-2), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-1), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now, "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-3), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-3), "WW58999226", "Valera Cheater", 7, "Leave comments"),
-    new DailyReport(DateTime.Now.AddDays(-2), "WW58999226", "Valera Cheater", 7, "Leave comments"),
-    new DailyReport(DateTime.Now.AddDays(-5), "WW58999226", "Valera Cheater", 7, "Leave comments"),
-    new DailyReport(DateTime.Now.AddDays(-7), "WW58999226", "Valera Cheater", 7, "Leave comments"),
+    new DailyReport(DateTime.Now.AddDays(-28), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-27), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-26), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-25), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-24), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-23), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-22), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-21), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-20), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-19), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-18), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-17), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-16), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-15), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-14), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-13), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-12), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-11), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-10), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-9), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-8), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
+    new DailyReport(DateTime.Now.AddDays(-7), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
+
+
+
 
 };
 Worker grisha = new Worker("MO50896213", "Grigory Zavodniy", dailyReports);
-grisha.GetReportForPeriod(DateTime.Now.AddDays(-10), DateTime.Now);
+grisha.GetReportForPeriod(DateTime.Now.AddDays(-28), DateTime.Now);
 
