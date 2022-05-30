@@ -27,7 +27,6 @@ List<DailyReport> dailyReports = new List<DailyReport>()
     new DailyReport(DateTime.Now.AddDays(-14), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
     new DailyReport(DateTime.Now.AddDays(-13), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
     new DailyReport(DateTime.Now.AddDays(-12), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-11), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
     new DailyReport(DateTime.Now.AddDays(-10), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
     new DailyReport(DateTime.Now.AddDays(-9), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
     new DailyReport(DateTime.Now.AddDays(-8), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
@@ -35,6 +34,7 @@ List<DailyReport> dailyReports = new List<DailyReport>()
 };
 Manager grisha = new Manager("MO50896213", "Grigory Zavodniy", dailyReports);
 //grisha.GetReportForPeriod(DateTime.Now.AddDays(-28), DateTime.Now);
+grisha.AddNewReport(DateTime.Now.AddDays(-11), 9, "no comments");
 
 grisha.GetReportForMonth(5);
 

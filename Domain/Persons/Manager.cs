@@ -38,12 +38,12 @@ namespace SalaryCounter.Domain
                 }
                 if (isMounthly && periodWorkHours > MonthlyWorkHours)
                     {
-                        periodSalary += ManaferOvertimeBonus;
+                        periodSalary += ManagerOvertimeBonus;
                     }
                 Console.WriteLine(new string('-', 70));
                 Console.WriteLine($"In common from {fromDate:d} to {toDate:d}: {periodWorkHours} hours worked for {periodSalary} uah");
                 if (isMounthly)
-                    Console.WriteLine($"Overtime hours this month: {periodWorkHours - MonthlyWorkHours}. Overtime bonus this month: {ManaferOvertimeBonus} uah.\nGreat job!");
+                    Console.WriteLine($"Overtime hours this month: {periodWorkHours - MonthlyWorkHours}. Overtime bonus this month: {ManagerOvertimeBonus} uah.\nGreat job!");
                 Console.WriteLine(new string('-', 70));
             }
         }
