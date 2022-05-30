@@ -15,5 +15,9 @@
             WorkHours = workHours;
             Comment = comment;
         }
+        public override string ToString()
+        {
+            return $"{ID} - {Name} - {Date:d} - {WorkHours} - {Comment}";
+        }
     }
 }

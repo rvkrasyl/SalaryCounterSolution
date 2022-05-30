@@ -9,32 +9,33 @@ using SalaryCounter.Persistance;
 //Console.Write("Please enter your Passport ID to continue:");
 //string id = Console.ReadLine();
 
-List<DailyReport> dailyReports = new List<DailyReport>()
-{
-    new DailyReport(DateTime.Now.AddDays(-27), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-26), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-25), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-24), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-23), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-22), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-21), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-20), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-19), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-18), "MO50896213", "Grigory Zavodniy", 8, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-17), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-16), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-15), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-14), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-13), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-12), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-10), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-9), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-8), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-    new DailyReport(DateTime.Now.AddDays(-7), "MO50896213", "Grigory Zavodniy", 9, "no comments"),
-};
-Manager grisha = new Manager("MO50896213", "Grigory Zavodniy", dailyReports);
-//grisha.GetReportForPeriod(DateTime.Now.AddDays(-28), DateTime.Now);
-grisha.AddNewReport(DateTime.Now.AddDays(-11), 9, "no comments");
+List<DailyReport> dailyReports = new List<DailyReport>();
+Manager grigory = new Manager("MO50896213", "Grigory Dushniy", dailyReports);
+Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", dailyReports);
+Worker pilip = new Worker("OP56987568", "Pulup Truten", dailyReports);
 
-grisha.GetReportForMonth(5);
+grigory.AddNewReport(DateTime.Now.AddDays(-11), 9, "Coment 1");
+dimka.AddNewReport(DateTime.Now.AddDays(-12), 8, "Комент 1");
+pilip.AddNewReport(DateTime.Now.AddDays(-10), 7, "Coment pilip");
+grigory.AddNewReport(DateTime.Now.AddDays(-9), 10, "Coment plus");
+pilip.AddNewReport(DateTime.Now.AddDays(-8), 8, "Шось там роблю");
+dimka.AddNewReport(DateTime.Now.AddDays(-9), 4, "Комент Дiмка");
+grigory.AddNewReport(DateTime.Now.AddDays(-7), 8, "Coment comment");
+dimka.AddNewReport(DateTime.Now.AddDays(-5), 3, "Комент Фрилансер");
+pilip.AddNewReport(DateTime.Now.AddDays(-7), 9, "Тружусь");
+grigory.AddNewReport(DateTime.Now.AddDays(-6), 6, "Coment 12");
+pilip.AddNewReport(DateTime.Now.AddDays(-4), 8, "Скоро пятниця");
+grigory.AddNewReport(DateTime.Now.AddDays(-2), 7, "Coment 33");
+grigory.AddNewReport(DateTime.Now.AddDays(-2), 6, "Coment 33");
+pilip.AddNewReport(DateTime.Now, 9, "Понедiлок(");
+pilip.AddNewReport(DateTime.Now, 8, "Понедiлок(");
+dimka.AddNewReport(DateTime.Now.AddDays(-1), 5, "Работаю");
+dimka.AddNewReport(DateTime.Now.AddDays(-1), 6, "Работаю");
+
+int i = 1;
+foreach (var item in dailyReports)
+{
+    Console.WriteLine(i + ") " + item.ToString());
+    i++;
+}
 

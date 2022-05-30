@@ -29,7 +29,7 @@ namespace SalaryCounter.Domain
                 Console.WriteLine("No cheating! You cant create report for dates in future!");
                 return;
             }
-            if (DailyReports.Select(report => report.Date).Contains(date) == true)
+            if (DailyReports.Select(report => report.Date.Day).Contains(date.Day))
             {
                 Console.WriteLine($"You have alredy sended report for {date:d}");
                 return;
