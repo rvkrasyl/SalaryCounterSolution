@@ -10,10 +10,13 @@ using SalaryCounter.Persistance;
 //string id = Console.ReadLine();
 
 Employees emloyeesList= new Employees();
-List<DailyReport> dailyReports = new List<DailyReport>();
-Manager grigory = new Manager("MO50896213", "Grigory Dushniy", dailyReports);
-Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", dailyReports);
-Worker pilip = new Worker("OP56987568", "Pulup Truten", dailyReports);
+List<DailyReport> managersDailyReports = new List<DailyReport>();
+List<DailyReport> freelancersDailyReports = new List<DailyReport>();
+List<DailyReport> workersDailyReports = new List<DailyReport>();
+
+Manager grigory = new Manager("MO50896213", "Grigory Dushniy", managersDailyReports);
+Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", freelancersDailyReports);
+Worker pilip = new Worker("OP56987568", "Pulup Truten", workersDailyReports);
 emloyeesList.AddNew(grigory);
 emloyeesList.AddNew(dimka);
 emloyeesList.AddNew(pilip);
@@ -34,16 +37,30 @@ grigory.AddNewReport(DateTime.Now.AddDays(-2), 6, "Coment 33");
 pilip.AddNewReport(DateTime.Now, 9, "Понедiлок(");
 pilip.AddNewReport(DateTime.Now, 8, "Понедiлок(");
 dimka.AddNewReport(DateTime.Now.AddDays(-1), 5, "Работаю");
-dimka.AddNewReport(DateTime.Now.AddDays(-1), 6, "Работаю");
+dimka.AddNewReport(DateTime.Now.AddHours(-1), 2, "Работаю 2");
+dimka.AddNewReport(DateTime.Now.AddDays(-1).AddHours(-2), 6, "Работаю");
+
+pilip.GetReportForWeek(DateTime.Now.AddDays(-14));
+grigory.GetGeteralReportForWeek((Roles)1, DateTime.Now.AddDays(-14), workersDailyReports);
 
 //int i = 1;
-//foreach (var item in dailyReports)
+//foreach (var item in managersDailyReports)
 //{
 //    Console.WriteLine(i + ") " + item.ToString());
 //    i++;
 //}
-emloyeesList.Exist("AA00000001");
-emloyeesList.Exist("asd");
-Thread.Sleep(100);
-emloyeesList.ShowAll();
+//foreach (var item in freelancersDailyReports)
+//{
+//    Console.WriteLine(i + ") " + item.ToString());
+//    i++;
+//}
+//foreach (var item in workersDailyReports)
+//{
+//    Console.WriteLine(i + ") " + item.ToString());
+//    i++;
+//}
+//emloyeesList.Exist("AA00000001");
+//emloyeesList.Exist("asd");
+//Thread.Sleep(100);
+//emloyeesList.ShowAll();
 

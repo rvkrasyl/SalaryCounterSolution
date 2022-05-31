@@ -51,9 +51,9 @@ namespace SalaryCounter.Domain
         {
             GetReportForPeriod(day, day, false);
         }
-        public void GetReportForWeek(DateTime FromDate)
+        public void GetReportForWeek(DateTime fromDate)
         {
-            GetReportForPeriod(FromDate, FromDate.AddDays(7), false);
+            GetReportForPeriod(fromDate, fromDate.AddDays(7), false);
         }
         public void GetReportForMonth(int month)
         {

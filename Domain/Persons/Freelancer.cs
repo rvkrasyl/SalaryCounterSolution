@@ -18,8 +18,9 @@ namespace SalaryCounter.Domain
             }
             else
             {
-                var employeeReport = DailyReports.Where(employee => employee.ID == Passport && employee.Date >= fromDate && employee.Date <= toDate)
-                                                    .Select(employee => new { Date = employee.Date, WorkedHours = employee.WorkHours });
+                var employeeReport = DailyReports.Where(employee => employee.ID == Passport && employee.Date.Day >= fromDate.Day && employee.Date.Day <= toDate.Day)
+                                                    .Select(employee => new { Date = employee.Date, WorkedHours = employee.WorkHours })
+                                                    .OrderBy(employee => employee.Date);
                 short periodWorkHours = Convert.ToInt16(employeeReport.Sum(period => period.WorkedHours)); ;
                 decimal periodSalary = 0;
                 decimal todaysSalary = 0;
