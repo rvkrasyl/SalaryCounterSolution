@@ -22,19 +22,19 @@ namespace SalaryCounter.Domain
             SalaryPerHour = salaryPerHour;
             DailyReports = dailyReports;
         }
-        public virtual void AddNewReport(DateTime date, byte workHours, string comment)
+        public virtual void AddNewReport(DateTime date, byte workHours, string comment, bool isManager = false)
         {
             if (date > DateTime.Now)
             {
                 Console.WriteLine("No cheating! You cant create report for dates in future!");
                 return;
             }
-            if (DailyReports.Select(report => report.Date.Day).Contains(date.Day))
+            if (!isManager && DailyReports.Select(report => report.Date.Day).Contains(date.Day))
             {
                 Console.WriteLine($"You have alredy sended report for {date:d}");
                 return;
             }
-            if (11 < workHours)
+            if (!isManager && 11 < workHours)
             {
                 Console.WriteLine("Ou! Its huge! We appreciate your layalty. But rest is important too!" +
                     "\nIf you worked for more than 11 hours per day - please contact to your manager for approval");
@@ -70,6 +70,10 @@ namespace SalaryCounter.Domain
         public override string ToString()
         {
             return $"{Passport} - {Role} - {Name}";
+        }
+        public void DeleteReport(DailyReport item)
+        {
+            DailyReports.Remove(item);
         }
     }
 }

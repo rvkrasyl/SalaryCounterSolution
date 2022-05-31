@@ -306,6 +306,9 @@ namespace SalaryCounter.Domain
                     case ConsoleKey.Escape:
                         role = 6;
                         break;
+                    default:
+                        role = 10;
+                        break;
                 }
             }
             Console.Write($"\nWhat is {name} salary per hour? ");
@@ -316,6 +319,87 @@ namespace SalaryCounter.Domain
         public void ShowAllEmployee()
         {
             Employees.ShowAll();
+        }
+
+        public void AddReportByID()
+        {
+            Console.Write("Enter ID of employee to add hours: ");
+            string employeeID = Console.ReadLine();
+            if (!Employees.List.Select(item => item.Passport).Contains(employeeID))
+            {
+                Console.WriteLine($"We dont have employee with id {employeeID}");
+                return;
+            }
+
+            Console.Write("Enter a date to add hours (DD.MM.YYYY) D-day, M-Month, Y-Year: ");
+            DateTime.TryParse(Console.ReadLine(), out DateTime date);
+            if (date > DateTime.Now)
+            {
+                Console.WriteLine("No cheating! You cant create report for dates in future!");
+                return;
+            }
+
+            Console.Write("Enter number of hours, that employee spend on work: ");
+            byte workHours = Convert.ToByte(Console.ReadLine());
+            bool needToRemove = false;
+            if (DailyReports.Select(report => report.Date.Day).Contains(date.Day))
+            {
+                Console.Write($"You have alredy sended report for {date:d}. \nPress \"Y\" if you want to Rewrite it or \"N\" to cancel changes ");
+                bool a = true;
+                while (a)
+                {
+                    var key = Console.ReadKey().Key;
+                    switch (key)
+                    {
+                        case ConsoleKey.Y:
+                            needToRemove = true;
+                            a = false;
+                            break;
+                        case ConsoleKey.N:
+                            return;
+                            a = false;
+                            break;
+                        default:
+                            Console.WriteLine("Please make your choise;");
+                            break;
+                    }
+                }
+            }
+
+            Console.Write("\nAdd comment to report: ");
+            string comment = Console.ReadLine();
+
+            Employee check = Employees.List.FirstOrDefault(employee => employee.Passport == employeeID);
+            if (check.Role == (Roles)0)
+            {
+                Manager employee = new Manager(check.Passport, check.Name, check.DailyReports);
+                if (needToRemove)
+                {
+                    var report = employee.DailyReports.Where(a => a.Date.Day == date.Day).ToList();
+                    employee.DeleteReport(report[0]);
+                }
+                employee.AddNewReport(date, workHours, comment, true);
+            }
+            else if (check.Role == (Roles)1)
+            {
+                Worker employee = new Worker(check.Passport, check.Name, check.DailyReports);
+                if (needToRemove)
+                {
+                    var report = employee.DailyReports.Where(a => a.Date.Day == date.Day).ToList();
+                    employee.DeleteReport(report[0]);
+                }
+                employee.AddNewReport(date, workHours, comment, true);
+            }
+            else if (check.Role == (Roles)2)
+            {
+                Freelancer employee = new Freelancer(check.Passport, check.Name, check.DailyReports);
+                if (needToRemove)
+                {
+                    var report = employee.DailyReports.Where(a => a.Date.Day == date.Day).ToList();
+                    employee.DeleteReport(report[0]);
+                }
+                employee.AddNewReport(date, workHours, comment, true);
+            }
         }
 
         /* Может просматривать часы работы за выбранный период по конкретному сотруднику */

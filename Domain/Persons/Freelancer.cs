@@ -38,7 +38,7 @@ namespace SalaryCounter.Domain
                 Console.WriteLine(new string('-', 70));
             }
         }
-        public override void AddNewReport(DateTime date, byte workHours, string comment)
+        public override void AddNewReport(DateTime date, byte workHours, string comment, bool isManager = false)
         {
             if (date < DateTime.Now.AddDays(-2))
             {
