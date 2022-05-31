@@ -67,5 +67,9 @@ namespace SalaryCounter.Domain
             DateTime.TryParse(date, out DateTime day);
             GetReportForPeriod(day, day.AddDays(daysInCurrentMonth-1), true);
         }
+        public override string ToString()
+        {
+            return $"{Passport} - {Role} - {Name}";
+        }
     }
 }

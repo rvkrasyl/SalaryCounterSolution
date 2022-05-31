@@ -44,5 +44,29 @@ namespace SalaryCounterTests
 
             Assert.IsTrue(dailyReports.Select(report => report.Date.Day).Contains(DateTime.Now.AddDays(-1).Day));
         }
+        [Test]
+        public void Test2()
+        {
+            Employees emloyeesList = new Employees();
+            Manager grigory = new Manager("MO50896213", "Grigory Dushniy", new List<DailyReport>());
+            Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", new List<DailyReport>());
+            Worker pilip = new Worker("OP56987568", "Pulup Truten", new List<DailyReport>());
+            emloyeesList.AddNew(grigory);
+            emloyeesList.AddNew(dimka);
+            emloyeesList.AddNew(pilip);
+            Assert.IsTrue(emloyeesList.Exist("AA00000001"));
+        }
+        [Test]
+        public void Test3()
+        {
+            Employees emloyeesList = new Employees();
+            Manager grigory = new Manager("MO50896213", "Grigory Dushniy", new List<DailyReport>());
+            Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", new List<DailyReport>());
+            Worker pilip = new Worker("OP56987568", "Pulup Truten", new List<DailyReport>());
+            emloyeesList.AddNew(grigory);
+            emloyeesList.AddNew(dimka);
+            emloyeesList.AddNew(pilip);
+            Assert.IsFalse(emloyeesList.Exist("no waay"));
+        }
     }
 }

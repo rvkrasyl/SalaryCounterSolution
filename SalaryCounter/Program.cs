@@ -9,10 +9,14 @@ using SalaryCounter.Persistance;
 //Console.Write("Please enter your Passport ID to continue:");
 //string id = Console.ReadLine();
 
+Employees emloyeesList= new Employees();
 List<DailyReport> dailyReports = new List<DailyReport>();
 Manager grigory = new Manager("MO50896213", "Grigory Dushniy", dailyReports);
 Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", dailyReports);
 Worker pilip = new Worker("OP56987568", "Pulup Truten", dailyReports);
+emloyeesList.AddNew(grigory);
+emloyeesList.AddNew(dimka);
+emloyeesList.AddNew(pilip);
 
 grigory.AddNewReport(DateTime.Now.AddDays(-11), 9, "Coment 1");
 dimka.AddNewReport(DateTime.Now.AddDays(-12), 8, "Комент 1");
@@ -32,10 +36,14 @@ pilip.AddNewReport(DateTime.Now, 8, "Понедiлок(");
 dimka.AddNewReport(DateTime.Now.AddDays(-1), 5, "Работаю");
 dimka.AddNewReport(DateTime.Now.AddDays(-1), 6, "Работаю");
 
-int i = 1;
-foreach (var item in dailyReports)
-{
-    Console.WriteLine(i + ") " + item.ToString());
-    i++;
-}
+//int i = 1;
+//foreach (var item in dailyReports)
+//{
+//    Console.WriteLine(i + ") " + item.ToString());
+//    i++;
+//}
+emloyeesList.Exist("AA00000001");
+emloyeesList.Exist("asd");
+Thread.Sleep(100);
+emloyeesList.ShowAll();
 
