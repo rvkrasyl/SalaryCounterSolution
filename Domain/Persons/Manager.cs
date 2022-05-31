@@ -320,7 +320,6 @@ namespace SalaryCounter.Domain
         {
             Employees.ShowAll();
         }
-
         public void AddReportByID()
         {
             Console.Write("Enter ID of employee to add hours: ");
@@ -401,7 +400,47 @@ namespace SalaryCounter.Domain
                 employee.AddNewReport(date, workHours, comment, true);
             }
         }
+        public void ShowEmployeesPerformance()
+        {
+            Console.Write("Enter ID of employee to show performance: ");
+            string employeeID = Console.ReadLine();
+            if (!Employees.List.Select(item => item.Passport).Contains(employeeID))
+            {
+                Console.WriteLine($"We dont have employee with id {employeeID}");
+                return;
+            }
 
+            Console.Write("Enter a date from which you want to see performance (DD.MM.YYYY) D-day, M-Month, Y-Year: ");
+            DateTime.TryParse(Console.ReadLine(), out DateTime fromDate);
+            if (fromDate > DateTime.Now)
+            {
+                Console.WriteLine("No cheating! You cant create report for dates in future!");
+                return;
+            }
+
+            Console.Write("Enter date till which you want to see performance (DD.MM.YYYY) D-day, M-Month, Y-Year: ");
+            DateTime.TryParse(Console.ReadLine(), out DateTime toDate);
+            if (toDate < fromDate)
+            {
+                Console.WriteLine("Invalid date range selected!");
+                return;
+            }
+
+            int totalWorkHours = 0;
+            string employeeName = default;
+
+            var data = Employees.List.First(item => item.Passport == employeeID).DailyReports.Where(data => data.ID == employeeID && data.Date.Day >= fromDate.Day && data.Date.Day <= toDate.Day).ToList();
+            foreach (var conditionItem in data)
+            {
+                Console.WriteLine($"{conditionItem.Date} {conditionItem.Name} worked for {conditionItem.WorkHours} his comment - {conditionItem.Comment}");
+                totalWorkHours += conditionItem.WorkHours;
+                employeeName = conditionItem.Name;
+            }
+            Console.WriteLine(new string('-', 70));
+            Console.WriteLine($"Total work time of {employeeName} for period ({fromDate:d} - {toDate:d}) = {totalWorkHours}");
+            Console.WriteLine(new string('-', 70));
+
+        }
         /* Может просматривать часы работы за выбранный период по конкретному сотруднику */
 
     }

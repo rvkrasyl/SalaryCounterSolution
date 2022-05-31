@@ -49,10 +49,10 @@ igor.AddNewReport(DateTime.Now.AddDays(-6), 8, "Coment 5");
 dimka.AddNewReport(DateTime.Now.AddDays(-1).AddHours(-2), 6, "Работаю");
 
 
-grigory.AddReportByID();
+grigory.ShowEmployeesPerformance();
 
 //igor.GetReportForWeek(DateTime.Now.AddDays(-14));
-grigory.GetGeteralReportForWeek((Roles)1, DateTime.Now.AddDays(-14));
+//grigory.GetGeteralReportForWeek((Roles)1, DateTime.Now.AddDays(-14));
 
 
 //int i = 1;
