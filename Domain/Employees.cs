@@ -8,13 +8,12 @@ namespace SalaryCounter.Domain
 {
     public class Employees
     {
-        public List<Employee> List { get; }
+        public static List<Employee> List = new List<Employee>();
         public Employees ()
         {
-            List = new List<Employee> ();
             List.Add(new Employee("AA00000001", "Director", Roles.manager, new List<DailyReport>(), 10m));
         }
-        public void AddNew(Employee newEmployee)
+        public static void AddNew(Employee newEmployee)
         {
             if (List.Select(employee => employee.Passport).Contains(newEmployee.Passport))
             {
@@ -27,7 +26,7 @@ namespace SalaryCounter.Domain
                 Console.WriteLine("New employee succesfully addded");
             }
         }
-        public bool Exist(string passport)
+        public static bool Exist(string passport)
         {
             if (List.Select(employee => employee.Passport).Contains(passport))
             {
@@ -41,7 +40,7 @@ namespace SalaryCounter.Domain
                 return false;
             }
         }
-        public void ShowAll()
+        public static void ShowAll()
         {
             int i = 1;
             foreach (Employee employee in List)

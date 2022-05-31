@@ -50,7 +50,7 @@ namespace SalaryCounter.Domain
                 Console.WriteLine(new string('-', 70));
             }
         }
-        public void GetGeneralReportForPeriod(Roles role, List<DailyReport> reports, DateTime fromDate, DateTime toDate, bool isMounthly = false)
+        public void GetGeneralReportForPeriod(Roles role, DateTime fromDate, DateTime toDate, bool isMounthly = false)
         {
             switch ((int)role)
             {
@@ -137,7 +137,8 @@ namespace SalaryCounter.Domain
                             Console.ResetColor();
                         }
 
-                        Worker worker = new Worker("OO99999999", "My name", reports);
+                        
+                        Worker worker = Employees.List.FirstOrDefault(employee => employee.Role == role) as Worker;
                         var employeeReport = worker.DailyReports.Where(employee => employee.Role == role && employee.Date.Day >= fromDate.Day && employee.Date.Day <= toDate.Day)
                                                             .Select(employee => new { Name = employee.Name, Date = employee.Date, WorkedHours = employee.WorkHours })
                                                             .OrderBy(employee => employee.Date)
@@ -220,7 +221,7 @@ namespace SalaryCounter.Domain
                             Console.ResetColor();
                         }
 
-                        Freelancer freelancer = new Freelancer("TT99999999", "My name", reports);
+                        Freelancer freelancer = Employees.List.FirstOrDefault(employee => employee.Role == role) as Freelancer;
                         var employeeReport = freelancer.DailyReports.Where(employee => employee.Role == role && employee.Date.Day >= fromDate.Day && employee.Date.Day <= toDate.Day)
                                                             .Select(employee => new { Name = employee.Name, Date = employee.Date, WorkedHours = employee.WorkHours })
                                                             .OrderBy(employee => employee.Date)
@@ -260,15 +261,15 @@ namespace SalaryCounter.Domain
             }
 
         }
-        public void GetGeneralReportForDay(Roles role, DateTime day ,List<DailyReport> reports)
+        public void GetGeneralReportForDay(Roles role, DateTime day)
         {
-            GetGeneralReportForPeriod(role, reports ,day, day, false);
+            GetGeneralReportForPeriod(role, day, day, false);
         }
-        public void GetGeteralReportForWeek(Roles role, DateTime fromDate, List<DailyReport> reports)
+        public void GetGeteralReportForWeek(Roles role, DateTime fromDate)
         {
-            GetGeneralReportForPeriod(role, reports , fromDate, fromDate.AddDays(7), false);
+            GetGeneralReportForPeriod(role, fromDate, fromDate.AddDays(7), false);
         }
-        public void GetGeneralReportForMonth(Roles role, int month, List<DailyReport> reports)
+        public void GetGeneralReportForMonth(Roles role, int month)
         {
             if (month < DateTime.Now.Month)
             {
@@ -278,8 +279,46 @@ namespace SalaryCounter.Domain
             string date = $"01,{month},{DateTime.Now.Year}";
             int daysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, month);
             DateTime.TryParse(date, out DateTime day);
-            GetGeneralReportForPeriod(role ,reports ,day, day.AddDays(daysInCurrentMonth - 1), true);
+            GetGeneralReportForPeriod(role, day, day.AddDays(daysInCurrentMonth - 1), true);
         }
+        public void AddEmployee ()
+        {
+            Console.Write("Please enter a name of new employee: ");
+            string name = Console.ReadLine();
+            Console.Write($"Please enter {name} passport ID: ");
+            string passport = Console.ReadLine();
+            int role = 10;
+            Console.Write($"Please enter \"0\" on keyboard if {name} is Manager, \"1\" if he or \"2\" if he is Freelancer: ");
+            while (role == 10)
+            {
+                var key = Console.ReadKey().Key;
+                switch (key)
+                {
+                    case ConsoleKey.D0:
+                        role = 0;
+                        break;
+                    case ConsoleKey.D1:
+                        role = 1;
+                        break;
+                    case ConsoleKey.D2:
+                        role = 2;
+                        break;
+                    case ConsoleKey.Escape:
+                        role = 6;
+                        break;
+                }
+            }
+            Console.Write($"\nWhat is {name} salary per hour? ");
+            decimal salaryPerHour = Convert.ToDecimal(Console.ReadLine());
+
+            Employees.AddNew(new Employee(passport, name, (Roles)role, new List<DailyReport>(), salaryPerHour));
+        }
+        public void ShowAllEmployee()
+        {
+            Employees.ShowAll();
+        }
+
+        /* Может просматривать часы работы за выбранный период по конкретному сотруднику */
 
     }
 }

@@ -51,10 +51,10 @@ namespace SalaryCounterTests
             Manager grigory = new Manager("MO50896213", "Grigory Dushniy", new List<DailyReport>());
             Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", new List<DailyReport>());
             Worker pilip = new Worker("OP56987568", "Pulup Truten", new List<DailyReport>());
-            emloyeesList.AddNew(grigory);
-            emloyeesList.AddNew(dimka);
-            emloyeesList.AddNew(pilip);
-            Assert.IsTrue(emloyeesList.Exist("AA00000001"));
+            Employees.AddNew(grigory);
+            Employees.AddNew(dimka);
+            Employees.AddNew(pilip);
+            Assert.IsTrue(Employees.Exist("AA00000001"));
         }
         [Test]
         public void Test3()
@@ -63,10 +63,10 @@ namespace SalaryCounterTests
             Manager grigory = new Manager("MO50896213", "Grigory Dushniy", new List<DailyReport>());
             Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", new List<DailyReport>());
             Worker pilip = new Worker("OP56987568", "Pulup Truten", new List<DailyReport>());
-            emloyeesList.AddNew(grigory);
-            emloyeesList.AddNew(dimka);
-            emloyeesList.AddNew(pilip);
-            Assert.IsFalse(emloyeesList.Exist("no waay"));
+            Employees.AddNew(grigory);
+            Employees.AddNew(dimka);
+            Employees.AddNew(pilip);
+            Assert.IsFalse(Employees.Exist("no waay"));
         }
     }
 }
