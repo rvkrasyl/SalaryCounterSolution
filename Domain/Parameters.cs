@@ -23,8 +23,6 @@ namespace SalaryCounter.Domain
         public const int WorkerSalaryPerHour = 750;
         public const byte NormalDayWorkTime = 8;
         public const int FreelancerSalaryPerHour = 1000;
-
-
     }
     public enum Roles
     {
