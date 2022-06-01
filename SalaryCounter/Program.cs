@@ -8,19 +8,19 @@ Console.WriteLine("Hello, World!");
 //Console.Write("Please enter your Passport ID to continue:");
 //string id = Console.ReadLine();
 
-//Employees emloyeesList= new Employees();
-//List<DailyReport> managersDailyReports = new List<DailyReport>();
-//List<DailyReport> freelancersDailyReports = new List<DailyReport>();
-//List<DailyReport> workersDailyReports = new List<DailyReport>();
+Employees emloyeesList= new Employees();
+List<DailyReport> managersDailyReports = new List<DailyReport>();
+List<DailyReport> freelancersDailyReports = new List<DailyReport>();
+List<DailyReport> workersDailyReports = new List<DailyReport>();
 
-//Manager grigory = new Manager("MO50896213", "Grigory Dushniy", managersDailyReports);
-//Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", freelancersDailyReports);
-//Worker pilip = new Worker("OP56987568", "Pulup Truten", workersDailyReports);
-//Worker igor = new Worker("GG56988452", "Igor Dobryak", workersDailyReports);
-//Employees.AddNew(grigory);
-//Employees.AddNew(dimka);
-//Employees.AddNew(igor);
-//Employees.AddNew(pilip);
+Manager grigory = new Manager("MO50896213", "Grigory Dushniy", managersDailyReports);
+Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", freelancersDailyReports);
+Worker pilip = new Worker("OP56987568", "Pulup Truten", workersDailyReports);
+Worker igor = new Worker("GG56988452", "Igor Dobryak", workersDailyReports);
+Employees.AddNewEmployee(grigory);
+Employees.AddNewEmployee(dimka);
+Employees.AddNewEmployee(igor);
+Employees.AddNewEmployee(pilip);
 //Employees.ShowAll();
 
 //grigory.AddNewReport(DateTime.Now.AddDays(-11), 9, "Coment 1");
@@ -70,8 +70,8 @@ Console.WriteLine("Hello, World!");
 //    Console.WriteLine(i + ") " + item.ToString());
 //    i++;
 //}
-//Employees.Exist("AA00000001");
-//Employees.Exist("asd");
-//Thread.Sleep(100);
-//Employees.ShowAll();
+Employees.Exists("GG56988452");
+Employees.Exists("asd");
+Thread.Sleep(100);
+Employees.ShowAll();
 

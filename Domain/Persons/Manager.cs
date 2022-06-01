@@ -327,7 +327,7 @@ namespace SalaryCounter.Domain
             Console.Write($"\nWhat is {name} salary per hour? ");
             decimal salaryPerHour = Convert.ToDecimal(Console.ReadLine());
 
-            Employees.AddNew(new Employee(passport, name, (Roles)role, new List<DailyReport>(), salaryPerHour));
+            Employees.AddNewEmployee(new Employee(passport, name, (Roles)role, new List<DailyReport>(), salaryPerHour));
         }
         public void ShowAllEmployee()
         {
