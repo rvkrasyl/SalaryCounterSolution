@@ -8,12 +8,12 @@
         public Roles Role { get; }
         public byte WorkHours { get; }
         public string Comment { get; }
-        public DailyReport(DateTime date, string id, string name, Roles role, byte workHours, string comment)
+        public DailyReport(DateTime date, string id, string name, int role, byte workHours, string comment)
         {
             Date = date;
             ID = id;
             Name = name;
-            Role = role;
+            Role = (Roles)role;
             WorkHours = workHours;
             Comment = comment;
         }

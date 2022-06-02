@@ -1,6 +1,10 @@
 ﻿using SalaryCounter.Domain;
+using SalaryCounter.Domain.FileIOServices;
 
 Console.WriteLine("Hello, World!");
+Employees employees = FileIO.GetAllEmployees();
+
+Console.WriteLine(Employees.Exists("OP56987568"));
 
 //Console.ForegroundColor = ConsoleColor.DarkBlue;
 //Console.WriteLine("\t\tWelcome to SoftDevelopment_SalaryCounter.");
@@ -9,19 +13,22 @@ Console.WriteLine("Hello, World!");
 //string id = Console.ReadLine();
 
 Employees emloyeesList= new Employees();
-List<DailyReport> managersDailyReports = new List<DailyReport>();
+/*List<DailyReport> managersDailyReports = new List<DailyReport>();
 List<DailyReport> freelancersDailyReports = new List<DailyReport>();
 List<DailyReport> workersDailyReports = new List<DailyReport>();
-
-Manager grigory = new Manager("MO50896213", "Grigory Dushniy", managersDailyReports);
-Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", freelancersDailyReports);
-Worker pilip = new Worker("OP56987568", "Pulup Truten", workersDailyReports);
-Worker igor = new Worker("GG56988452", "Igor Dobryak", workersDailyReports);
-Employees.AddNewEmployee(grigory);
-Employees.AddNewEmployee(dimka);
-Employees.AddNewEmployee(igor);
-Employees.AddNewEmployee(pilip);
+*/
+Manager grigory = new Manager("MO50896213", "Grigory Dushniy"/*, managersDailyReports*/);
+Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller"/*, freelancersDailyReports*/);
+Worker pilip = new Worker("OP56987568", "Pulup Truten"/*, workersDailyReports*/);
+Worker igor = new Worker("GG56988452", "Igor Dobryak"/*, workersDailyReports*/);
+//Employees.AddNewEmployee(grigory);
+//Employees.AddNewEmployee(dimka);
+//Employees.AddNewEmployee(igor);
+//Employees.AddNewEmployee(pilip);
 //Employees.ShowAll();
+//grigory.AddEmployee();
+//grigory.AddReportByID();
+grigory.AddReportByID();
 
 //grigory.AddNewReport(DateTime.Now.AddDays(-11), 9, "Coment 1");
 //dimka.AddNewReport(DateTime.Now.AddDays(-12), 8, "Комент 1");
@@ -70,8 +77,14 @@ Employees.AddNewEmployee(pilip);
 //    Console.WriteLine(i + ") " + item.ToString());
 //    i++;
 //}
-Employees.Exists("GG56988452");
-Employees.Exists("asd");
-Thread.Sleep(100);
-Employees.ShowAll();
+//Employees.Exists("GG56988452");
+//Employees.Exists("asd");
+//Thread.Sleep(100);
+//Employees.ShowAll();
+
+//Console.Clear();
+
+//dimka.GetReportForDay(DateTime.Today);
+//grigory.GetGeteralReportForWeek(Roles.freelancer,DateTime.Today.AddDays(-7));
+
 

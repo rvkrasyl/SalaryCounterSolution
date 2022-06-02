@@ -1,11 +1,12 @@
-﻿using static SalaryCounter.Domain.Parameters;
+﻿using SalaryCounter.Domain.FileIOServices;
+using static SalaryCounter.Domain.Parameters;
 
 
 namespace SalaryCounter.Domain
 {
     public class Manager : FullTimeEmployee
     {
-        public Manager(string passportId, string name, List<DailyReport> dailyReports) : base(passportId, name, Roles.manager, dailyReports, Parameters.ManagerSalaryPerHour, Parameters.ManagerSalaryPerHour * Parameters.MonthlyWorkHours)
+        public Manager(string passportId, string name/*, List<DailyReport> dailyReports*/) : base(passportId, name, 0, /*dailyReports,*/ Parameters.ManagerSalaryPerHour, Parameters.ManagerSalaryPerHour * Parameters.MonthlyWorkHours)
         {
 
         }
@@ -26,7 +27,7 @@ namespace SalaryCounter.Domain
                 Console.ResetColor();
             }
 
-            var employeeReport = DailyReports.Where(employee => employee.ID == Passport && employee.Date.Day >= fromDate.Day && employee.Date.Day <= toDate.Day)
+            var employeeReport = FileIO.GetReportsData((int)Role).Where(employee => employee.ID == Passport && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
                                                 .Select(employee => new { Date = employee.Date, WorkedHours = employee.WorkHours })
                                                 .OrderBy(employee => employee.Date);
 
@@ -72,7 +73,7 @@ namespace SalaryCounter.Domain
                             Console.ResetColor();
                         }
 
-                        var employeeReport = DailyReports.Where(employee => employee.Role == role && employee.Date.Day >= fromDate.Day && employee.Date.Day <= toDate.Day)
+                        var employeeReport = FileIO.GetReportsData((int)role).Where(employee => employee.Role == role && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
                                                             .Select(employee => new { Name = employee.Name, Date = employee.Date, WorkedHours = employee.WorkHours })
                                                             .OrderBy(employee => employee.Date)
                                                             .GroupBy(employee => employee.Name);
@@ -144,8 +145,7 @@ namespace SalaryCounter.Domain
                             Console.ResetColor();
                         }
 
-                        Worker worker = Employees.List.FirstOrDefault(employee => employee.Role == role) as Worker;
-                        var employeeReport = worker.DailyReports.Where(employee => employee.Role == role && employee.Date.Day >= fromDate.Day && employee.Date.Day <= toDate.Day)
+                        var employeeReport = FileIO.GetReportsData((int)role).Where(employee => employee.Role == role && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
                                                             .Select(employee => new { Name = employee.Name, Date = employee.Date, WorkedHours = employee.WorkHours })
                                                             .OrderBy(employee => employee.Date)
                                                             .GroupBy(employee => employee.Name);
@@ -224,8 +224,7 @@ namespace SalaryCounter.Domain
                             Console.ResetColor();
                         }
 
-                        Freelancer freelancer = Employees.List.FirstOrDefault(employee => employee.Role == role) as Freelancer;
-                        var employeeReport = freelancer.DailyReports.Where(employee => employee.Role == role && employee.Date.Day >= fromDate.Day && employee.Date.Day <= toDate.Day)
+                        var employeeReport = FileIO.GetReportsData((int)role).Where(employee => employee.Role == role && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
                                                             .Select(employee => new { Name = employee.Name, Date = employee.Date, WorkedHours = employee.WorkHours })
                                                             .OrderBy(employee => employee.Date)
                                                             .GroupBy(employee => employee.Name);
@@ -244,7 +243,7 @@ namespace SalaryCounter.Domain
                             {
                                 todaysSalary = report.WorkedHours * FreelancerSalaryPerHour;
                                 periodSalary += todaysSalary;
-                                Console.WriteLine($"{report.Date:d} you worked for {report.WorkedHours} hours and earned {todaysSalary} uah");
+                                Console.WriteLine($"{report.Date:d} {name[0]} worked for {report.WorkedHours} hours and earned {todaysSalary} uah");
                             }
 
                             Console.WriteLine(new string('-', 70));
@@ -290,7 +289,7 @@ namespace SalaryCounter.Domain
             DateTime.TryParse(date, out DateTime day);
             GetGeneralReportForPeriod(role, day, day.AddDays(daysInCurrentMonth - 1), true);
         }
-        public void AddEmployee ()
+        public void AddEmployee()
         {
             Console.Write("Please enter a name of new employee: ");
             string name = Console.ReadLine();
@@ -303,23 +302,29 @@ namespace SalaryCounter.Domain
             
             while (role == 10)
             {
+
                 var key = Console.ReadKey().Key;
                 switch (key)
                 {
                     case ConsoleKey.D0:
+                    case ConsoleKey.NumPad0:
                         role = 0;
                         break;
                     case ConsoleKey.D1:
+                    case ConsoleKey.NumPad1:
                         role = 1;
                         break;
                     case ConsoleKey.D2:
+                    case ConsoleKey.NumPad2:
                         role = 2;
                         break;
                     case ConsoleKey.Escape:
                         role = 6;
-                        break;
+                        return;
+                        break; 
                     default:
                         role = 10;
+                        Console.WriteLine("\nInvalid Input. Please enter \"0\" on keyboard if {name} is Manager, \"1\" if he or \"2\" if he is Freelancer. Press \"Esc\" to exit: ");
                         break;
                 }
             }
@@ -327,7 +332,7 @@ namespace SalaryCounter.Domain
             Console.Write($"\nWhat is {name} salary per hour? ");
             decimal salaryPerHour = Convert.ToDecimal(Console.ReadLine());
 
-            Employees.AddNewEmployee(new Employee(passport, name, (Roles)role, new List<DailyReport>(), salaryPerHour));
+            Employees.AddNewEmployee(new Employee(passport, name, role, /*new List<DailyReport>(),*/ salaryPerHour));
         }
         public void ShowAllEmployee()
         {
@@ -355,7 +360,9 @@ namespace SalaryCounter.Domain
             byte workHours = Convert.ToByte(Console.ReadLine());
 
             bool needToRemove = false;
-            if (DailyReports.Select(report => report.Date.Day).Contains(date.Day))
+            Employee employeeToAddReport = Employees.List.First(a => a.Passport == employeeID);
+
+            if (FileIO.GetReportsData((int)employeeToAddReport.Role).Select(report => report.Date.Day).Contains(date.Day))
             {
                 Console.Write($"You have alredy sended report for {date:d}. \nPress \"Y\" if you want to Rewrite it or \"N\" to cancel changes ");
                 
@@ -372,7 +379,7 @@ namespace SalaryCounter.Domain
                         case ConsoleKey.N:
                             return;
                         default:
-                            Console.WriteLine("Please make your choise;");
+                            Console.Write("\nPlease make your choise;");
                             break;
                     }
                 }
@@ -384,38 +391,35 @@ namespace SalaryCounter.Domain
             Employee check = Employees.List.FirstOrDefault(employee => employee.Passport == employeeID);
             if (check.Role == (Roles)0)
             {
-                Manager employee = new Manager(check.Passport, check.Name, check.DailyReports);
+                Manager employee = new Manager(check.Passport, check.Name/*, check.DailyReports*/);
                 if (needToRemove)
                 {
-                    var report = employee.DailyReports.Where(a => a.Date.Day == date.Day).ToList();
-                    employee.DeleteReport(report[0]);
+                    FileIO.DeleteReport((int)employee.Role, date.Day);
                 }
                 employee.AddNewReport(date, workHours, comment, true);
             }
 
             else if (check.Role == (Roles)1)
             {
-                Worker employee = new Worker(check.Passport, check.Name, check.DailyReports);
+                Worker employee = new Worker(check.Passport, check.Name/*, check.DailyReports*/);
                 if (needToRemove)
                 {
-                    var report = employee.DailyReports.Where(a => a.Date.Day == date.Day).ToList();
-                    employee.DeleteReport(report[0]);
+                    FileIO.DeleteReport((int)employee.Role, date.Day);
                 }
                 employee.AddNewReport(date, workHours, comment, true);
             }
 
             else if (check.Role == (Roles)2)
             {
-                Freelancer employee = new Freelancer(check.Passport, check.Name, check.DailyReports);
+                Freelancer employee = new Freelancer(check.Passport, check.Name/*, check.DailyReports*/);
                 if (needToRemove)
                 {
-                    var report = employee.DailyReports.Where(a => a.Date.Day == date.Day).ToList();
-                    employee.DeleteReport(report[0]);
+                    FileIO.DeleteReport((int)employee.Role, date.Day);
                 }
                 employee.AddNewReport(date, workHours, comment, true);
             }
         }
-        public void ShowEmployeesPerformance()
+        public void ShowEmployeesPerformance() // години роботи працівника
         {
             Console.Write("Enter ID of employee to show performance: ");
             string employeeID = Console.ReadLine();
@@ -443,7 +447,8 @@ namespace SalaryCounter.Domain
 
             int totalWorkHours = 0;
             string employeeName = default;
-            var data = Employees.List.First(item => item.Passport == employeeID).DailyReports.Where(data => data.ID == employeeID && data.Date.Day >= fromDate.Day && data.Date.Day <= toDate.Day).ToList();
+            Employee employee = Employees.List.First(item => item.Passport == employeeID);
+            var data = FileIO.GetReportsData((int)employee.Role).Where(data => data.ID == employeeID && data.Date.Ticks >= fromDate.Ticks && data.Date.Ticks <= toDate.Ticks).ToList();
             foreach (var conditionItem in data)
             {
                 Console.WriteLine($"{conditionItem.Date} {conditionItem.Name} worked for {conditionItem.WorkHours} his comment - {conditionItem.Comment}");

@@ -1,10 +1,11 @@
-﻿using static SalaryCounter.Domain.Parameters;
+﻿using SalaryCounter.Domain.FileIOServices;
+using static SalaryCounter.Domain.Parameters;
 
 namespace SalaryCounter.Domain
 {
     public class Worker : FullTimeEmployee
     {
-        public Worker(string passportId, string name, List<DailyReport> dailyReports) : base(passportId, name, Roles.worker, dailyReports, WorkerSalaryPerHour, WorkerSalaryPerHour * MonthlyWorkHours)
+        public Worker(string passportId, string name/*, List<DailyReport> dailyReports*/) : base(passportId, name, 1,/* dailyReports,*/ WorkerSalaryPerHour, WorkerSalaryPerHour * MonthlyWorkHours)
         {
 
         }
@@ -25,7 +26,7 @@ namespace SalaryCounter.Domain
                 Console.ResetColor();
             }
 
-            var employeeReport = DailyReports.Where(employee => employee.ID == Passport && employee.Date.Day >= fromDate.Day && employee.Date.Day <= toDate.Day)
+            var employeeReport = FileIO.GetReportsData((int)Role).Where(employee => employee.ID == Passport && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
                                                 .Select(employee => new { Date = employee.Date, WorkedHours = employee.WorkHours })
                                                 .OrderBy(employee => employee.Date);
 

@@ -1,4 +1,6 @@
-﻿namespace SalaryCounter.Domain
+﻿using SalaryCounter.Domain.FileIOServices;
+
+namespace SalaryCounter.Domain
 {
     public class Employee
     {
@@ -6,14 +8,12 @@
         public string Name { get; }
         public Roles Role { get; }
         public decimal SalaryPerHour { get; }
-        public List<DailyReport> DailyReports { get; }
-        public Employee (string passportId, string name, Roles role, List<DailyReport> dailyReports, decimal salaryPerHour)
+        public Employee (string passportId, string name, int role, decimal salaryPerHour)
         {
             Passport = passportId;
             Name = name;
-            Role = role;
+            Role = (Roles)role;
             SalaryPerHour = salaryPerHour;
-            DailyReports = dailyReports;
         }
         public virtual void AddNewReport(DateTime date, byte workHours, string comment, bool isManager = false)
         {
@@ -23,7 +23,7 @@
                 return;
             }
 
-            if (!isManager && DailyReports.Where(item => item.ID == Passport).Select(report => report.Date.Day).Contains(date.Day))
+            if (!isManager && FileIO.GetReportsData((int)Role).Where(item => item.ID == Passport).Select(report => report.Date.Day).Contains(date.Day))
             {
                 Console.WriteLine($"You have alredy sended report for {date:d}");
                 return;
@@ -36,14 +36,14 @@
                 return;
             }
 
-            DailyReport report = new DailyReport(date, Passport, Name, Role, workHours, comment);
-            DailyReports.Add(report);
+            DailyReport report = new DailyReport(date, Passport, Name, (int)Role, workHours, comment);
+            FileIO.AddReport((int)Role, report);
             Console.WriteLine("Succesfully added!");
         }
         public virtual void GetReportForPeriod(DateTime fromDate, DateTime toDate, bool isMounthly = false) { }
         public void GetReportForDay(DateTime day)
         {
-            GetReportForPeriod(day, day, false);
+            GetReportForPeriod(day, day.AddHours(1), false);
         }
         public void GetReportForWeek(DateTime fromDate)
         {
@@ -66,10 +66,6 @@
         public override string ToString()
         {
             return $"{Passport} - {Role} - {Name}";
-        }
-        public void DeleteReport(DailyReport item)
-        {
-            DailyReports.Remove(item);
         }
     }
 }

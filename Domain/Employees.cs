@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SalaryCounter.Domain.FileIOServices;
 
 namespace SalaryCounter.Domain
 {
@@ -19,11 +15,13 @@ namespace SalaryCounter.Domain
             else
             {
                 List.Add(newEmployee);
+                FileIO.AddEmployee(newEmployee);
                 Console.WriteLine("New employee succesfully addded");
             }
         }
         public static bool Exists(string passport)
         {
+            FileIO.GetAllEmployees();
             if (List.Select(employee => employee.Passport).Contains(passport))
             {
                 var info = List.Where(a => a.Passport == passport).ToList();
@@ -38,6 +36,7 @@ namespace SalaryCounter.Domain
         }
         public static void ShowAll()
         {
+            FileIO.GetAllEmployees();
             int i = 1;
             foreach (Employee employee in List)
             {

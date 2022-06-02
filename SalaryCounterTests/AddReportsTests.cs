@@ -1,4 +1,5 @@
 using SalaryCounter.Domain;
+using SalaryCounter.Domain.FileIOServices;
 
 namespace SalaryCounterTests
 {
@@ -12,10 +13,9 @@ namespace SalaryCounterTests
         [Test]
         public void Test1()
         {
-            List<DailyReport> dailyReports = new List<DailyReport>();
-            Manager grigory = new Manager("MO50896213", "Grigory Dushniy", dailyReports);
-            Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", dailyReports);
-            Worker pilip = new Worker("OP56987568", "Pulup Truten", dailyReports);
+            Manager grigory = new Manager("MO50896213", "Grigory Dushniy");
+            Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller");
+            Worker pilip = new Worker("OP56987568", "Pulup Truten");
 
             grigory.AddNewReport(DateTime.Now.AddDays(-11), 9, "Coment 1");
             dimka.AddNewReport(DateTime.Now.AddDays(-12), 8, "Комент 1");
@@ -36,33 +36,33 @@ namespace SalaryCounterTests
             dimka.AddNewReport(DateTime.Now.AddDays(-1), 5, "Работаю");
 
             int i = 1;
-            foreach(var item in dailyReports)
+            foreach(var item in FileIO.GetReportsData(2))
             {
                 Console.WriteLine(i + ") " + item.ToString());
                 i++;
             }
 
-            Assert.IsTrue(dailyReports.Select(report => report.Date.Day).Contains(DateTime.Now.AddDays(-1).Day));
+            Assert.IsTrue(FileIO.GetReportsData(2).Select(report => report.Date.Day).Contains(DateTime.Now.Day));
         }
         [Test]
         public void Test2()
         {
             Employees emloyeesList = new Employees();
-            Manager grigory = new Manager("MO50896213", "Grigory Dushniy", new List<DailyReport>());
-            Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", new List<DailyReport>());
-            Worker pilip = new Worker("OP56987568", "Pulup Truten", new List<DailyReport>());
+            Manager grigory = new Manager("MO50896213", "Grigory Dushniy");
+            Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller");
+            Worker pilip = new Worker("OP56987568", "Pulup Truten");
             Employees.AddNewEmployee(grigory);
             Employees.AddNewEmployee(dimka);
             Employees.AddNewEmployee(pilip);
-            Assert.IsTrue(Employees.Exists("AA00000001"));
+            Assert.IsTrue(Employees.Exists("OP56987568"));
         }
         [Test]
         public void Test3()
         {
             Employees emloyeesList = new Employees();
-            Manager grigory = new Manager("MO50896213", "Grigory Dushniy", new List<DailyReport>());
-            Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller", new List<DailyReport>());
-            Worker pilip = new Worker("OP56987568", "Pulup Truten", new List<DailyReport>());
+            Manager grigory = new Manager("MO50896213", "Grigory Dushniy");
+            Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller");
+            Worker pilip = new Worker("OP56987568", "Pulup Truten");
             Employees.AddNewEmployee(grigory);
             Employees.AddNewEmployee(dimka);
             Employees.AddNewEmployee(pilip);
