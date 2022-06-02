@@ -62,19 +62,6 @@ namespace SalaryCounter.Domain.FileIOServices
             }
             return new Employees();
         }
-        private static string GetPath(int role)
-        {
-            string filePath = default;
-            if (role == 0)
-                filePath = ManagersReportsFilePath;
-            else if (role == 1)
-                filePath = WorkersReportsFilePath;
-            else if (role == 2)
-                filePath = FreelancersReportsFilePath;
-            else
-                filePath = "error";
-            return filePath;
-        }
         public static void DeleteReport(int role, int date)
         {
             List<DailyReport> report = FileIO.GetReportsData(role).Where(a => a.Date.Day != date).ToList();
@@ -97,6 +84,19 @@ namespace SalaryCounter.Domain.FileIOServices
                     streamWriter.WriteLine();
                 }
             }
+        }
+        private static string GetPath(int role)
+        {
+            string filePath = default;
+            if (role == 0)
+                filePath = ManagersReportsFilePath;
+            else if (role == 1)
+                filePath = WorkersReportsFilePath;
+            else if (role == 2)
+                filePath = FreelancersReportsFilePath;
+            else
+                filePath = "error";
+            return filePath;
         }
     }
 }

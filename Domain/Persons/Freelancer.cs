@@ -5,7 +5,7 @@ namespace SalaryCounter.Domain
 {
     public class Freelancer : Employee
     {
-        public Freelancer(string passportId, string name/*, List<DailyReport> dailyReports*/) : base(passportId, name, 2, /*dailyReports,*/ FreelancerSalaryPerHour) {  }
+        public Freelancer(string passportId, string name) : base(passportId, name, 2, FreelancerSalaryPerHour) {  }
         public override void GetReportForPeriod(DateTime fromDate, DateTime toDate, bool isMounthly = false)
         {
             if (toDate < fromDate)

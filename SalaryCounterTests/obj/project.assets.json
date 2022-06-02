@@ -895,19 +895,6 @@
         "runtime": {
           "bin/placeholder/SalaryCounter.Domain.dll": {}
         }
-      },
-      "SalaryCounter.Persistance/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "SalaryCounter.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/SalaryCounter.Persistance.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/SalaryCounter.Persistance.dll": {}
-        }
       }
     }
   },
@@ -3896,11 +3883,6 @@
       "type": "project",
       "path": "../Domain/Domain.csproj",
       "msbuildProject": "../Domain/Domain.csproj"
-    },
-    "SalaryCounter.Persistance/1.0.0": {
-      "type": "project",
-      "path": "../Persistance/Persistance.csproj",
-      "msbuildProject": "../Persistance/Persistance.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3910,7 +3892,6 @@
       "NUnit.Analyzers >= 3.3.0",
       "NUnit3TestAdapter >= 4.2.1",
       "SalaryCounter.Domain >= 1.0.0",
-      "SalaryCounter.Persistance >= 1.0.0",
       "coverlet.collector >= 3.1.2"
     ]
   },
@@ -3943,9 +3924,6 @@
           "projectReferences": {
             "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\Domain.csproj": {
               "projectPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Domain\\Domain.csproj"
-            },
-            "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Persistance\\Persistance.csproj": {
-              "projectPath": "C:\\Users\\iamdn\\source\\repos\\Solutions Heep\\SalaryCounterSolution\\Persistance\\Persistance.csproj"
             }
           }
         }

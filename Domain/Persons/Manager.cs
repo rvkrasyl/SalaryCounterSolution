@@ -6,11 +6,10 @@ namespace SalaryCounter.Domain
 {
     public class Manager : FullTimeEmployee
     {
-        public Manager(string passportId, string name/*, List<DailyReport> dailyReports*/) : base(passportId, name, 0, /*dailyReports,*/ Parameters.ManagerSalaryPerHour, Parameters.ManagerSalaryPerHour * Parameters.MonthlyWorkHours)
+        public Manager(string passportId, string name) : base(passportId, name, 0, Parameters.ManagerSalaryPerHour, Parameters.ManagerSalaryPerHour * Parameters.MonthlyWorkHours)
         {
 
         }
-
         public override void GetReportForPeriod(DateTime fromDate, DateTime toDate, bool isMounthly = false)
         {
             if (toDate < fromDate)
@@ -20,11 +19,7 @@ namespace SalaryCounter.Domain
             }
             if (!isMounthly)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(new string('-', 70));
-                Console.WriteLine("WARNING! Overtime bonuses report available only in Month report!");
-                Console.WriteLine(new string('-', 70));
-                Console.ResetColor();
+                ShowAlert();
             }
 
             var employeeReport = FileIO.GetReportsData((int)Role).Where(employee => employee.ID == Passport && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
@@ -66,11 +61,7 @@ namespace SalaryCounter.Domain
                         }
                         if (!isMounthly)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine(new string('-', 70));
-                            Console.WriteLine("WARNING! Overtime bonuses report available only in Month report!");
-                            Console.WriteLine(new string('-', 70));
-                            Console.ResetColor();
+                            ShowAlert();
                         }
 
                         var employeeReport = FileIO.GetReportsData((int)role).Where(employee => employee.Role == role && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
@@ -138,11 +129,7 @@ namespace SalaryCounter.Domain
                         }
                         if (!isMounthly)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine(new string('-', 70));
-                            Console.WriteLine("WARNING! Overtime bonuses report available only in Month report!");
-                            Console.WriteLine(new string('-', 70));
-                            Console.ResetColor();
+                            ShowAlert();
                         }
 
                         var employeeReport = FileIO.GetReportsData((int)role).Where(employee => employee.Role == role && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
@@ -217,11 +204,7 @@ namespace SalaryCounter.Domain
                         }
                         if (!isMounthly)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine(new string('-', 70));
-                            Console.WriteLine("WARNING! Overtime bonuses report available only in Month report!");
-                            Console.WriteLine(new string('-', 70));
-                            Console.ResetColor();
+                            ShowAlert();
                         }
 
                         var employeeReport = FileIO.GetReportsData((int)role).Where(employee => employee.Role == role && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
@@ -302,7 +285,6 @@ namespace SalaryCounter.Domain
             
             while (role == 10)
             {
-
                 var key = Console.ReadKey().Key;
                 switch (key)
                 {
@@ -332,7 +314,7 @@ namespace SalaryCounter.Domain
             Console.Write($"\nWhat is {name} salary per hour? ");
             decimal salaryPerHour = Convert.ToDecimal(Console.ReadLine());
 
-            Employees.AddNewEmployee(new Employee(passport, name, role, /*new List<DailyReport>(),*/ salaryPerHour));
+            Employees.AddNewEmployee(new Employee(passport, name, role, salaryPerHour));
         }
         public void ShowAllEmployee()
         {
@@ -365,7 +347,6 @@ namespace SalaryCounter.Domain
             if (FileIO.GetReportsData((int)employeeToAddReport.Role).Select(report => report.Date.Day).Contains(date.Day))
             {
                 Console.Write($"You have alredy sended report for {date:d}. \nPress \"Y\" if you want to Rewrite it or \"N\" to cancel changes ");
-                
                 bool a = true;
                 while (a)
                 {
@@ -391,31 +372,25 @@ namespace SalaryCounter.Domain
             Employee check = Employees.List.FirstOrDefault(employee => employee.Passport == employeeID);
             if (check.Role == (Roles)0)
             {
-                Manager employee = new Manager(check.Passport, check.Name/*, check.DailyReports*/);
+                Manager employee = new Manager(check.Passport, check.Name);
                 if (needToRemove)
-                {
                     FileIO.DeleteReport((int)employee.Role, date.Day);
-                }
                 employee.AddNewReport(date, workHours, comment, true);
             }
 
             else if (check.Role == (Roles)1)
             {
-                Worker employee = new Worker(check.Passport, check.Name/*, check.DailyReports*/);
+                Worker employee = new Worker(check.Passport, check.Name);
                 if (needToRemove)
-                {
                     FileIO.DeleteReport((int)employee.Role, date.Day);
-                }
                 employee.AddNewReport(date, workHours, comment, true);
             }
 
             else if (check.Role == (Roles)2)
             {
-                Freelancer employee = new Freelancer(check.Passport, check.Name/*, check.DailyReports*/);
+                Freelancer employee = new Freelancer(check.Passport, check.Name);
                 if (needToRemove)
-                {
                     FileIO.DeleteReport((int)employee.Role, date.Day);
-                }
                 employee.AddNewReport(date, workHours, comment, true);
             }
         }
@@ -460,6 +435,14 @@ namespace SalaryCounter.Domain
             Console.WriteLine($"Total work time of {employeeName} for period ({fromDate:d} - {toDate:d}) = {totalWorkHours}");
             Console.WriteLine(new string('-', 70));
 
+        }
+        public static void ShowAlert()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(new string('-', 70));
+            Console.WriteLine("WARNING! Overtime bonuses report available only in Month report!");
+            Console.WriteLine(new string('-', 70));
+            Console.ResetColor();
         }
     }
 }

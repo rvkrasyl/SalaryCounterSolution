@@ -5,7 +5,7 @@ namespace SalaryCounter.Domain
 {
     public class Worker : FullTimeEmployee
     {
-        public Worker(string passportId, string name/*, List<DailyReport> dailyReports*/) : base(passportId, name, 1,/* dailyReports,*/ WorkerSalaryPerHour, WorkerSalaryPerHour * MonthlyWorkHours)
+        public Worker(string passportId, string name) : base(passportId, name, 1, WorkerSalaryPerHour, WorkerSalaryPerHour * MonthlyWorkHours)
         {
 
         }
@@ -16,14 +16,9 @@ namespace SalaryCounter.Domain
                 Console.WriteLine("Invalid date range selected!");
                 return;
             }
-
             if (!isMounthly)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(new string('-', 70));
-                Console.WriteLine("WARNING! Overtime bonuses report available only in Month report!");
-                Console.WriteLine(new string('-', 70));
-                Console.ResetColor();
+                Manager.ShowAlert();
             }
 
             var employeeReport = FileIO.GetReportsData((int)Role).Where(employee => employee.ID == Passport && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
