@@ -2,11 +2,11 @@
 
 namespace SalaryCounter.Persistance
 {
-    internal interface IRepository
+    internal interface IAdder
     {
         void AddReport(Roles role, DailyReport report);
-        List<DailyReport> GetAllReports(Roles role);
+        //List<DailyReport> GetMyReports(Roles role);
         void AddEmployee(Employee employee);
-        Employees GetAllEmployees();
+        //Employees GetAllEmployees();
     }
 }

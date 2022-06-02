@@ -23,6 +23,11 @@ namespace SalaryCounter.Domain
         public const int WorkerSalaryPerHour = 750;
         public const byte NormalDayWorkTime = 8;
         public const int FreelancerSalaryPerHour = 1000;
+
+        public const string EmployeeListFilePath = @"C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\SalaryCounter\Data\EmployeesList.csv";
+        public const string FreelancersReportsFilePath = @"C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\SalaryCounter\Data\FreelancersReports.csv";
+        public const string ManagersReportsFilePath = @"C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\SalaryCounter\Data\ManagersReports.csv";
+        public const string WorkersReportsFilePath = @"C:\Users\iamdn\source\repos\Solutions Heep\SalaryCounterSolution\SalaryCounter\Data\WorkersReports.csv";
     }
     public enum Roles
     {
