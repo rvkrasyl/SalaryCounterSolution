@@ -15,13 +15,13 @@ namespace SalaryCounter.Domain
             else
             {
                 List.Add(newEmployee);
-                FileIO.AddEmployee(newEmployee);
+                new FileIO().AddEmployee(newEmployee);
                 Console.WriteLine("New employee succesfully addded");
             }
         }
         public static bool Exists(string passport)
         {
-            FileIO.GetAllEmployees();
+            new FileIO().GetAllEmployees();
             if (List.Select(employee => employee.Passport).Contains(passport))
             {
                 var info = List.Where(a => a.Passport == passport).ToList();
@@ -36,7 +36,7 @@ namespace SalaryCounter.Domain
         }
         public static void ShowAll()
         {
-            FileIO.GetAllEmployees();
+            new FileIO().GetAllEmployees();
             int i = 1;
             foreach (Employee employee in List)
             {

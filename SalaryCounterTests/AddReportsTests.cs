@@ -35,14 +35,15 @@ namespace SalaryCounterTests
             dimka.AddNewReport(DateTime.Now.AddDays(-1), 5, "Работаю");
             dimka.AddNewReport(DateTime.Now.AddDays(-1), 5, "Работаю");
 
+            FileIO fileIO = new FileIO();
             int i = 1;
-            foreach(var item in FileIO.GetReportsData(2))
+            foreach(var item in fileIO.GetReportsData(2))
             {
                 Console.WriteLine(i + ") " + item.ToString());
                 i++;
             }
 
-            Assert.IsTrue(FileIO.GetReportsData(2).Select(report => report.Date.Day).Contains(DateTime.Now.Day));
+            Assert.IsTrue(fileIO.GetReportsData(2).Select(report => report.Date.Day).Contains(DateTime.Now.Day));
         }
         [Test]
         public void Test2()

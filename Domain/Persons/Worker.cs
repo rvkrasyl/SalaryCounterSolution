@@ -20,8 +20,9 @@ namespace SalaryCounter.Domain
             {
                 Manager.ShowAlert();
             }
+            FileIO fileIO = new FileIO();
 
-            var employeeReport = FileIO.GetReportsData((int)Role).Where(employee => employee.ID == Passport && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
+            var employeeReport = fileIO.GetReportsData((int)Role).Where(employee => employee.ID == Passport && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
                                                 .Select(employee => new { Date = employee.Date, WorkedHours = employee.WorkHours })
                                                 .OrderBy(employee => employee.Date);
 

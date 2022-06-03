@@ -1,5 +1,6 @@
 ﻿using SalaryCounter.Domain;
 using SalaryCounter.Domain.FileIOServices;
+using SalaryCounter.Program;
 
 Console.ForegroundColor = ConsoleColor.DarkBlue;
 Console.WriteLine("\tWelcome to SoftDevelopment_SalaryCounter.");
@@ -37,356 +38,317 @@ Console.WriteLine("Please select next option: ");
 
 if (currentEmployee.Role == Roles.manager)
 {
-    /* Может добавлять отработанные часы в список сотрудников. Добавлять время может только за себя. Возможно добавление времени задним числом.
-Может просматривать свои отработанные часы и зарплату за период
-Выберите желаемое действие:
-(1). Добавить сотрудника
-(2). Просмотреть отчет по всем сотрудникам
-(3). Просмотреть отчет по конкретному сотруднику
-(4). Добавить часы работы
-(5). Выход из программы
-*/
+    condition = false;
+    currentEmployee = new Manager(currentEmployee.Passport, currentEmployee.Name);
+    Manager manager = currentEmployee as Manager; 
 
+    while (!condition)
+    {
+        condition = true;
+        bool periodCondition = false;
+        bool roleCondition = false;
+        Console.WriteLine("Press \"1\" to ADD new EMPLOYEE;\nPress \"2\" to SEE REPORTS about ALL EMPLOYEES;\nPress \"3\" to SEE REPORT about CONCRETE EMPLOYEE;\nPress \"4\" to ADD REPORT to OTHER EMPLOYEE;" +
+            "\nPress \"5\" to ADD YOURS REPORT;\nPress \"6\" to SEE YOURS REPORT;\nPress \"Esc\" to Exit");
+        var key = Console.ReadKey().Key;
+
+        switch (key)
+        {
+            case ConsoleKey.D1:
+            case ConsoleKey.NumPad1:
+                {
+                    Console.Clear();
+                    manager.AddEmployee();
+
+                    condition = ReportHandler.AnotherReportNeed(condition, ref periodCondition);
+
+                    break;
+                }
+            case ConsoleKey.D2:
+            case ConsoleKey.NumPad2:
+                {
+                    Console.Clear();
+
+                    while (!periodCondition)
+                    {
+                        Console.WriteLine("Select a period for report:\nPress \"1\" to see report for concrete DAY;\nPress \"2\" to see report for concrete WEEK;\nPress \"3\" to see report for concrete MONTH;" +
+                                             "\nPress \"4\" to see report for CUSTOM PERIOD;\nPress \"5\" for go back to PREVIOUS MENU;\nPress \"Esc\" to Exit ");
+                        var periodKey = Console.ReadKey().Key;
+                        byte role = 0;
+
+                        switch (periodKey)
+                        {
+                            case ConsoleKey.NumPad1:
+                            case ConsoleKey.D1:
+                                {
+                                    while(!roleCondition)
+                                    {
+                                        Console.WriteLine("Press \"1\" to see report about all MANAGERS;Press \"2\" see report about all WORKERS;Press \"3\" to see report about all FREELANCERS");
+                                        var roleKey = Console.ReadKey().Key;
+
+                                        if (roleKey == ConsoleKey.D1 || roleKey == ConsoleKey.NumPad1)
+                                            role = 0;
+                                        else if (roleKey == ConsoleKey.D2 || roleKey == ConsoleKey.NumPad2)
+                                            role = 1;
+                                        else if (roleKey == ConsoleKey.D3 || roleKey == ConsoleKey.NumPad3)
+                                            role = 2;
+                                        else
+                                        {
+                                            Console.WriteLine("Error, new role was added, please contact with Developer. Program will close in 5 sec");
+                                            Thread.Sleep(5000);
+                                            Environment.Exit(0);
+                                        }
+
+                                        Console.Write("Please enter a date to see report (Example 01.01.2022): ");
+                                        manager.GetGeneralReportForDay((Roles)role, DateTime.Parse(Console.ReadLine()).Date);
+
+                                        condition = ReportHandler.AnotherReportNeed(condition, ref roleCondition);
+                                    }
+                                    break;
+                                }
+                            case ConsoleKey.NumPad2:
+                            case ConsoleKey.D2:
+                                {
+                                    while (!roleCondition)
+                                    {
+                                        Console.WriteLine("Press \"1\" to see report about all MANAGERS;Press \"2\" see report about all WORKERS;Press \"3\" to see report about all FREELANCERS");
+                                        var roleKey = Console.ReadKey().Key;
+                                        if (roleKey == ConsoleKey.D1 || roleKey == ConsoleKey.NumPad1)
+                                            role = 0;
+                                        else if (roleKey == ConsoleKey.D2 || roleKey == ConsoleKey.NumPad2)
+                                            role = 1;
+                                        else if (roleKey == ConsoleKey.D3 || roleKey == ConsoleKey.NumPad3)
+                                            role = 2;
+                                        else
+                                        {
+                                            Console.WriteLine("Error, new role was added, please contact with Developer. Program will close in 5 sec");
+                                            Thread.Sleep(5000);
+                                            Environment.Exit(0);
+                                        }
+
+                                        Console.Write("Please enter a date from which you want to see Weekly report (Example 01.01.2022): ");
+                                        manager.GetGeteralReportForWeek((Roles)role, DateTime.Parse(Console.ReadLine()).Date);
+
+                                        condition = ReportHandler.AnotherReportNeed(condition, ref roleCondition);
+                                    }
+                                    break;
+                                }
+                            case ConsoleKey.NumPad3:
+                            case ConsoleKey.D3:
+                                {
+                                    while (!roleCondition)
+                                    {
+                                        Console.WriteLine("Press \"1\" to see report about all MANAGERS;Press \"2\" see report about all WORKERS;Press \"3\" to see report about all FREELANCERS");
+                                        var roleKey = Console.ReadKey().Key;
+                                        if (roleKey == ConsoleKey.D1 || roleKey == ConsoleKey.NumPad1)
+                                            role = 0;
+                                        else if (roleKey == ConsoleKey.D2 || roleKey == ConsoleKey.NumPad2)
+                                            role = 1;
+                                        else if (roleKey == ConsoleKey.D3 || roleKey == ConsoleKey.NumPad3)
+                                            role = 2;
+                                        else
+                                        {
+                                            Console.WriteLine("Error, new role was added, please contact with Developer. Program will close in 5 sec");
+                                            Thread.Sleep(5000);
+                                            Environment.Exit(0);
+                                        }
+
+                                        Console.Write("Please enter number of Month to see report (Example: \"01\" for January, \"11\" for November): ");
+                                        manager.GetGeneralReportForMonth((Roles)role, Convert.ToInt32(Console.ReadLine()));
+
+                                        condition = ReportHandler.AnotherReportNeed(condition, ref roleCondition);
+                                    }
+                                    break;
+                                }
+                            case ConsoleKey.NumPad4:
+                            case ConsoleKey.D4:
+                                {
+                                    while (!roleCondition)
+                                    {
+                                        Console.WriteLine("Press \"1\" to see report about all MANAGERS;Press \"2\" see report about all WORKERS;Press \"3\" to see report about all FREELANCERS");
+                                        var roleKey = Console.ReadKey().Key;
+                                        if (roleKey == ConsoleKey.D1 || roleKey == ConsoleKey.NumPad1)
+                                            role = 0;
+                                        else if (roleKey == ConsoleKey.D2 || roleKey == ConsoleKey.NumPad2)
+                                            role = 1;
+                                        else if (roleKey == ConsoleKey.D3 || roleKey == ConsoleKey.NumPad3)
+                                            role = 2;
+                                        else
+                                        {
+                                            Console.WriteLine("Error, new role was added, please contact with Developer. Program will close in 5 sec");
+                                            Thread.Sleep(5000);
+                                            Environment.Exit(0);
+                                        }
+
+                                        Console.Write("Please enter a FROM date for report (Example 01.01.2022): ");
+                                        DateTime fromDate = DateTime.Parse(Console.ReadLine());
+                                        Console.Write("Please enter a FROM date for report (Example 30.01.2022): ");
+                                        DateTime toDate = DateTime.Parse(Console.ReadLine());
+                                        manager.GetGeneralReportForPeriod((Roles)role, fromDate, toDate);
+
+                                        condition = ReportHandler.AnotherReportNeed(condition, ref roleCondition);
+                                    }
+                                    break;
+                                }
+                            case ConsoleKey.NumPad5:
+                            case ConsoleKey.D5:
+                                {
+                                    Console.Clear();
+                                    periodCondition = true;
+                                    condition = false;
+                                    break;
+                                }
+                            case ConsoleKey.Escape:
+                                {
+                                    Environment.Exit(0);
+                                    break;
+                                }
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                    }
+                    break;
+                }
+            case ConsoleKey.D3:
+            case ConsoleKey.NumPad3:
+                {
+                    Console.Clear();
+                    manager.ShowEmployeesPerformance();
+
+                    condition = ReportHandler.AnotherReportNeed(condition, ref periodCondition);
+
+                    break;
+                }
+            case ConsoleKey.D4:
+            case ConsoleKey.NumPad4:
+                {
+                    Console.Clear();
+                    manager.AddReportByID();
+
+                    condition = ReportHandler.AnotherReportNeed(condition, ref periodCondition);
+
+                    break;
+                }
+            case ConsoleKey.D5:
+            case ConsoleKey.NumPad5:
+                {
+                    Console.Clear();
+                    Console.Write("Please enter date for report (Example 01.01.2022): ");
+                    DateTime date = DateTime.Parse(Console.ReadLine());
+
+                    Console.Write($"Enter how much time did you spend on work {date:d}: ");
+                    byte workHours = Convert.ToByte(Console.ReadLine());
+
+                    Console.WriteLine($"Please enter what kind of tasks did you resolve at {date:d}?");
+                    string comment = Console.ReadLine();
+
+                    manager.AddNewReport(date, workHours, comment);
+
+                    condition = ReportHandler.AnotherReportNeed(condition, ref periodCondition);
+
+                    break;
+                }
+            case ConsoleKey.D6:
+            case ConsoleKey.NumPad6:
+                {
+                    condition = false;
+                    Console.Clear();
+
+                    while (!periodCondition)
+                    {
+                        Console.WriteLine("Select a period for report:\nPress \"1\" to see report for concrete DAY;\nPress \"2\" to see report for concrete WEEK;\nPress \"3\" to see report for concrete MONTH;" +
+                            "\nPress \"4\" to see report for CUSTOM PERIOD;\nPress \"5\" for go back to PREVIOUS MENU;\nPress \"Esc\" to Exit ");
+                        var periodKey = Console.ReadKey().Key;
+                        switch (periodKey)
+                        {
+                            case ConsoleKey.NumPad1:
+                            case ConsoleKey.D1:
+                                {
+                                    Console.Write("Please enter a date to see report (Example 01.01.2022): ");
+                                    currentEmployee.GetReportForDay(DateTime.Parse(Console.ReadLine()).Date);
+
+                                    condition = ReportHandler.AnotherReportNeed(condition, ref periodCondition);
+
+                                    break;
+                                }
+                            case ConsoleKey.NumPad2:
+                            case ConsoleKey.D2:
+                                {
+                                    Console.Write("Please enter a date from which you want to see Weekly report (Example 01.01.2022): ");
+                                    currentEmployee.GetReportForWeek(DateTime.Parse(Console.ReadLine()));
+
+                                    condition = ReportHandler.AnotherReportNeed(condition, ref periodCondition);
+
+                                    break;
+                                }
+                            case ConsoleKey.NumPad3:
+                            case ConsoleKey.D3:
+                                {
+                                    Console.Write("Please enter nu,ber of Month to see report (Example: \"01\" for January, \"11\" for November): ");
+                                    currentEmployee.GetReportForMonth(Convert.ToInt32(Console.ReadLine()));
+
+                                    condition = ReportHandler.AnotherReportNeed(condition, ref periodCondition);
+
+                                    break;
+                                }
+                            case ConsoleKey.NumPad4:
+                            case ConsoleKey.D4:
+                                {
+                                    Console.Write("Please enter a FROM date for report (Example 01.01.2022): ");
+                                    DateTime fromDate = DateTime.Parse(Console.ReadLine());
+                                    Console.Write("Please enter a FROM date for report (Example 30.01.2022): ");
+                                    DateTime toDate = DateTime.Parse(Console.ReadLine());
+                                    currentEmployee.GetReportForPeriod(fromDate, toDate);
+
+                                    condition = ReportHandler.AnotherReportNeed(condition, ref periodCondition);
+
+                                    break;
+                                }
+                            case ConsoleKey.NumPad5:
+                            case ConsoleKey.D5:
+                                {
+                                    Console.Clear();
+                                    periodCondition = true;
+                                    condition = false;
+                                    break;
+                                }
+                            case ConsoleKey.Escape:
+                                {
+                                    Environment.Exit(0);
+                                    break;
+                                }
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                    }
+                    break;
+                }
+            case ConsoleKey.Escape:
+                {
+                    Environment.Exit(0);
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
+    }
 }
 else if (currentEmployee.Role == Roles.worker)
 {
     condition = false;
     currentEmployee = new Worker(currentEmployee.Passport, currentEmployee.Name);
-
-    while (!condition)
-    {
-        bool periodCondition = false;
-        Console.WriteLine("Press \"1\" to see your work hours and salary for period;\nPress \"2\" to add new work hours report;\nPress \"Esc\" to Exit");
-        var key = Console.ReadKey().Key;
-
-        if (key == ConsoleKey.NumPad1 || key == ConsoleKey.D1)
-        {
-            condition = true;
-            Console.Clear();
-            while (!periodCondition)
-            {
-                Console.WriteLine("Select a period for report:\nPress \"1\" to see report for concrete DAY;\nPress \"2\" to see report for concrete WEEK;\nPress \"3\" to see report for concrete MONTH;" +
-                    "\nPress \"4\" to see report for CUSTOM PERIOD;\nPress \"5\" for go back to PREVIOUS MENU;\nPress \"Esc\" to Exit ");
-                var periodKey = Console.ReadKey().Key;
-                switch (periodKey)
-                {
-                    case ConsoleKey.NumPad1:
-                    case ConsoleKey.D1:
-                        {
-                            Console.Write("Please enter a date to see report (Example 01.01.2022): ");
-                            currentEmployee.GetReportForDay(DateTime.Parse(Console.ReadLine()).Date);
-
-                            Console.WriteLine("Press \"Enter\" to see another report or add new report\nPress any other key to Exit");
-                            var otherOperation = Console.ReadKey().Key;
-
-                            if (otherOperation == ConsoleKey.Enter)
-                            {
-                                Console.Clear();
-                                periodCondition = true;
-                                condition = false;
-                            }
-                            else
-                                Environment.Exit(0);
-
-                            break;
-                        }
-                    case ConsoleKey.NumPad2:
-                    case ConsoleKey.D2:
-                        {
-                            Console.Write("Please enter a date from which you want to see Weekly report (Example 01.01.2022): ");
-                            currentEmployee.GetReportForWeek(DateTime.Parse(Console.ReadLine()));
-
-                            Console.WriteLine("Press \"Enter\" to see another report or add new report\nPress any other key to Exit");
-                            var otherOperation = Console.ReadKey().Key;
-
-                            if (otherOperation == ConsoleKey.Enter)
-                            {
-                                Console.Clear();
-                                periodCondition = true;
-                                condition = false;
-                            }
-                            else
-                                Environment.Exit(0);
-
-                            break;
-                        }
-                    case ConsoleKey.NumPad3:
-                    case ConsoleKey.D3:
-                        {
-                            Console.Write("Please enter nu,ber of Month to see report (Example: \"01\" for January, \"11\" for November): ");
-                            currentEmployee.GetReportForMonth(Convert.ToInt32(Console.ReadLine()));
-
-                            Console.WriteLine("Press \"Enter\" to see another report or add new report\nPress any other key to Exit");
-                            var otherOperation = Console.ReadKey().Key;
-
-                            if (otherOperation == ConsoleKey.Enter)
-                            {
-                                Console.Clear();
-                                periodCondition = true;
-                                condition = false;
-                            }
-                            else
-                                Environment.Exit(0);
-
-                            break;
-                        }
-                    case ConsoleKey.NumPad4:
-                    case ConsoleKey.D4:
-                        {
-                            Console.Write("Please enter a FROM date for report (Example 01.01.2022): ");
-                            DateTime fromDate = DateTime.Parse(Console.ReadLine());
-                            Console.Write("Please enter a FROM date for report (Example 30.01.2022): ");
-                            DateTime toDate = DateTime.Parse(Console.ReadLine());
-                            currentEmployee.GetReportForPeriod(fromDate, toDate);
-
-                            Console.WriteLine("Press \"Enter\" to see another report or add new report\nPress any other key to Exit");
-                            var otherOperation = Console.ReadKey().Key;
-
-                            if (otherOperation == ConsoleKey.Enter)
-                            {
-                                Console.Clear();
-                                periodCondition = true;
-                                condition = false;
-                            }
-                            else
-                                Environment.Exit(0);
-
-                            break;
-                        }
-                    case ConsoleKey.NumPad5:
-                    case ConsoleKey.D5:
-                        {
-                            Console.Clear();
-                            periodCondition = true;
-                            condition = false;
-                            break;
-                        }
-                    case ConsoleKey.Escape:
-                        {
-                            Environment.Exit(0);
-                            break;
-                        }
-                    default:
-                        {
-                            break;
-                        }
-                }
-            }
-        }
-
-        else if (key == ConsoleKey.D2 || key == ConsoleKey.NumPad2)
-        {
-            condition = true;
-            Console.Clear();
-            Console.Write("Please enter date for report (Example 01.01.2022): ");
-            DateTime date = DateTime.Parse(Console.ReadLine());
-
-            Console.Write($"Enter how much time did you spend on work {date:d}: ");
-            byte workHours = Convert.ToByte(Console.ReadLine());
-            if (workHours < +11)
-            {
-                Console.WriteLine($"Please enter what kind of tasks did you resolve at {date:d}?");
-                string comment = Console.ReadLine();
-                currentEmployee.AddNewReport(date, workHours, comment);
-
-                Console.WriteLine("Press \"Enter\" to add another report or see your work hours and salary for period\nPress any other key to Exit");
-                var otherOperation = Console.ReadKey().Key;
-
-                if (otherOperation == ConsoleKey.Enter)
-                {
-                    periodCondition = true;
-                    condition = false;
-                }
-                else
-                    Environment.Exit(0);
-            }
-            else
-            {
-                Console.WriteLine("Thats a lot! Please ask your Manager to help you with such a big report.");
-                condition = false;
-            }
-        }
-        else if (key == ConsoleKey.Escape)
-        {
-            condition = true;
-            Environment.Exit(0);
-        }
-        else
-        {
-            Console.WriteLine("Invalid command");
-        }
-    }
+    ReportHandler.HandleReport(currentEmployee, ref condition);
 }
 else if (currentEmployee.Role == Roles.freelancer)
 {
-
     condition = false;
     currentEmployee = new Freelancer(currentEmployee.Passport, currentEmployee.Name);
-
-    while (!condition)
-    {
-        bool periodCondition = false;
-        Console.WriteLine("Press \"1\" to see your work hours and salary for period;\nPress \"2\" to add new work hours report;\nPress \"Esc\" to Exit");
-        var key = Console.ReadKey().Key;
-
-        if (key == ConsoleKey.NumPad1 || key == ConsoleKey.D1)
-        {
-            condition = true;
-            Console.Clear();
-            while (!periodCondition)
-            {
-                Console.WriteLine("Select a period for report:\nPress \"1\" to see report for concrete DAY;\nPress \"2\" to see report for concrete WEEK;\nPress \"3\" to see report for concrete MONTH;" +
-                    "\nPress \"4\" to see report for CUSTOM PERIOD;\nPress \"5\" for go back to PREVIOUS MENU;\nPress \"Esc\" to Exit ");
-                var periodKey = Console.ReadKey().Key;
-                switch (periodKey)
-                {
-                    case ConsoleKey.NumPad1:
-                    case ConsoleKey.D1:
-                        {
-                            Console.Write("Please enter a date to see report (Example 01.01.2022): ");
-                            currentEmployee.GetReportForDay(DateTime.Parse(Console.ReadLine()).Date);
-
-                            Console.WriteLine("Press \"Enter\" to see another report or add new report\nPress any other key to Exit");
-                            var otherOperation = Console.ReadKey().Key;
-
-                            if (otherOperation == ConsoleKey.Enter)
-                            {
-                                Console.Clear();
-                                periodCondition = true;
-                                condition = false;
-                            }
-                            else
-                                Environment.Exit(0);
-
-                            break;
-                        }
-                    case ConsoleKey.NumPad2:
-                    case ConsoleKey.D2:
-                        {
-                            Console.Write("Please enter a date from which you want to see Weekly report (Example 01.01.2022): ");
-                            currentEmployee.GetReportForWeek(DateTime.Parse(Console.ReadLine()));
-
-                            Console.WriteLine("Press \"Enter\" to see another report or add new report\nPress any other key to Exit");
-                            var otherOperation = Console.ReadKey().Key;
-
-                            if (otherOperation == ConsoleKey.Enter)
-                            {
-                                Console.Clear();
-                                periodCondition = true;
-                                condition = false;
-                            }
-                            else
-                                Environment.Exit(0);
-
-                            break;
-                        }
-                    case ConsoleKey.NumPad3:
-                    case ConsoleKey.D3:
-                        {
-                            Console.Write("Please enter nu,ber of Month to see report (Example: \"01\" for January, \"11\" for November): ");
-                            currentEmployee.GetReportForMonth(Convert.ToInt32(Console.ReadLine()));
-
-                            Console.WriteLine("Press \"Enter\" to see another report or add new report\nPress any other key to Exit");
-                            var otherOperation = Console.ReadKey().Key;
-
-                            if (otherOperation == ConsoleKey.Enter)
-                            {
-                                Console.Clear();
-                                periodCondition = true;
-                                condition = false;
-                            }
-                            else
-                                Environment.Exit(0);
-
-                            break;
-                        }
-                    case ConsoleKey.NumPad4:
-                    case ConsoleKey.D4:
-                        {
-                            Console.Write("Please enter a FROM date for report (Example 01.01.2022): ");
-                            DateTime fromDate = DateTime.Parse(Console.ReadLine());
-                            Console.Write("Please enter a FROM date for report (Example 30.01.2022): ");
-                            DateTime toDate = DateTime.Parse(Console.ReadLine());
-                            currentEmployee.GetReportForPeriod(fromDate, toDate);
-
-                            Console.WriteLine("Press \"Enter\" to see another report or add new report\nPress any other key to Exit");
-                            var otherOperation = Console.ReadKey().Key;
-
-                            if (otherOperation == ConsoleKey.Enter)
-                            {
-                                Console.Clear();
-                                periodCondition = true;
-                                condition = false;
-                            }
-                            else
-                                Environment.Exit(0);
-
-                            break;
-                        }
-                    case ConsoleKey.NumPad5:
-                    case ConsoleKey.D5:
-                        {
-                            Console.Clear();
-                            periodCondition = true;
-                            condition = false;
-                            break;
-                        }
-                    case ConsoleKey.Escape:
-                        {
-                            Environment.Exit(0);
-                            break;
-                        }
-                    default:
-                        {
-                            break;
-                        }
-                }
-            }
-        }
-
-        else if (key == ConsoleKey.D2 || key == ConsoleKey.NumPad2)
-        {
-            condition = true;
-            Console.Clear();
-            Console.Write("Please enter date for report (Example 01.01.2022): ");
-            DateTime date = DateTime.Parse(Console.ReadLine());
-
-            Console.Write($"Enter how much time did you spend on work {date:d}: ");
-            byte workHours = Convert.ToByte(Console.ReadLine());
-            if (workHours <+ 11)
-            {
-                Console.WriteLine($"Please enter what kind of tasks did you resolve at {date:d}?");
-                string comment = Console.ReadLine();
-                currentEmployee.AddNewReport(date, workHours, comment);
-
-                Console.WriteLine("Press \"Enter\" to add another report or see your work hours and salary for period\nPress any other key to Exit");
-                var otherOperation = Console.ReadKey().Key;
-
-                if (otherOperation == ConsoleKey.Enter)
-                {
-                    Console.Clear();
-                    periodCondition = true;
-                    condition = false;
-                }
-                else
-                    Environment.Exit(0);
-            }
-            else
-            {
-                Console.WriteLine("Thats a lot! Please ask your Manager to help you with such a big report.");
-                condition = false;
-            }
-        }
-        else if (key == ConsoleKey.Escape)
-        {
-            condition = true;
-            Environment.Exit(0);
-        }
-        else
-        {
-            Console.WriteLine("Invalid command");
-        }
-    }
+    ReportHandler.HandleReport(currentEmployee, ref condition);
 }
 else
 {
@@ -394,81 +356,3 @@ else
     Thread.Sleep(5000);
     Environment.Exit(0);
 }
-
-//Employees emloyeesList= new Employees();
-/*List<DailyReport> managersDailyReports = new List<DailyReport>();
-List<DailyReport> freelancersDailyReports = new List<DailyReport>();
-List<DailyReport> workersDailyReports = new List<DailyReport>();
-*/
-//Manager grigory = new Manager("MO50896213", "Grigory Dushniy"/*, managersDailyReports*/);
-//Freelancer dimka = new Freelancer("TB32599985", "Dmitro Chiller"/*, freelancersDailyReports*/);
-//Worker pilip = new Worker("OP56987568", "Pulup Truten"/*, workersDailyReports*/);
-//Environment.Exit(0);
-//Worker igor = new Worker("GG56988452", "Igor Dobryak"/*, workersDailyReports*/);
-//Employees.AddNewEmployee(grigory);
-//Employees.AddNewEmployee(dimka);
-//Employees.AddNewEmployee(igor);
-//Employees.AddNewEmployee(pilip);
-//Employees.ShowAll();
-//grigory.AddEmployee();
-//grigory.AddReportByID();
-//grigory.AddReportByID();
-
-//grigory.AddNewReport(DateTime.Now.AddDays(-11), 9, "Coment 1");
-//dimka.AddNewReport(DateTime.Now.AddDays(-12), 8, "Комент 1");
-//pilip.AddNewReport(DateTime.Now.AddDays(-10), 7, "Coment pilip");
-//grigory.AddNewReport(DateTime.Now.AddDays(-9), 10, "Coment plus");
-//pilip.AddNewReport(DateTime.Now.AddDays(-8), 8, "Шось там роблю");
-//dimka.AddNewReport(DateTime.Now.AddDays(-9), 4, "Комент Дiмка");
-//grigory.AddNewReport(DateTime.Now.AddDays(-7), 8, "Coment comment");
-//dimka.AddNewReport(DateTime.Now.AddDays(-5), 3, "Комент Фрилансер");
-//pilip.AddNewReport(DateTime.Now.AddDays(-7), 9, "Тружусь");
-//grigory.AddNewReport(DateTime.Now.AddDays(-6), 6, "Coment 12");
-//pilip.AddNewReport(DateTime.Now.AddDays(-4), 8, "Скоро пятниця");
-//grigory.AddNewReport(DateTime.Now.AddDays(-2), 7, "Coment 33");
-//grigory.AddNewReport(DateTime.Now.AddDays(-2), 6, "Coment 33");
-//pilip.AddNewReport(DateTime.Now, 9, "Понедiлок(");
-//pilip.AddNewReport(DateTime.Now, 8, "Понедiлок(");
-//dimka.AddNewReport(DateTime.Now.AddDays(-1), 5, "Работаю");
-//dimka.AddNewReport(DateTime.Now.AddHours(-1), 2, "Работаю 2");
-//igor.AddNewReport(DateTime.Now.AddDays(-11), 9, "Coment 1");
-//igor.AddNewReport(DateTime.Now.AddDays(-10), 7, "Coment 2");
-//igor.AddNewReport(DateTime.Now.AddDays(-9), 8, "Coment 3");
-//igor.AddNewReport(DateTime.Now.AddDays(-8), 8, "Coment 4");
-//igor.AddNewReport(DateTime.Now.AddDays(-6), 8, "Coment 5");
-//dimka.AddNewReport(DateTime.Now.AddDays(-1).AddHours(-2), 6, "Работаю");
-
-
-//grigory.ShowEmployeesPerformance();
-
-//igor.GetReportForWeek(DateTime.Now.AddDays(-14));
-//grigory.GetGeteralReportForWeek((Roles)1, DateTime.Now.AddDays(-14));
-
-
-//int i = 1;
-//foreach (var item in managersDailyReports)
-//{
-//    Console.WriteLine(i + ") " + item.ToString());
-//    i++;
-//}
-//foreach (var item in freelancersDailyReports)
-//{
-//    Console.WriteLine(i + ") " + item.ToString());
-//    i++;
-//}
-//foreach (var item in workersDailyReports)
-//{
-//    Console.WriteLine(i + ") " + item.ToString());
-//    i++;
-//}
-//Employees.Exists("GG56988452");
-//Employees.Exists("asd");
-//Thread.Sleep(100);
-//Employees.ShowAll();
-
-//Console.Clear();
-
-//dimka.GetReportForDay(DateTime.Today);
-//grigory.GetGeteralReportForWeek(Roles.freelancer,DateTime.Today.AddDays(-7));
-
-

@@ -22,7 +22,9 @@ namespace SalaryCounter.Domain
                 ShowAlert();
             }
 
-            var employeeReport = FileIO.GetReportsData((int)Role).Where(employee => employee.ID == Passport && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
+            FileIO fileIO = new FileIO();
+
+            var employeeReport = fileIO.GetReportsData((int)Role).Where(employee => employee.ID == Passport && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
                                                 .Select(employee => new { Date = employee.Date, WorkedHours = employee.WorkHours })
                                                 .OrderBy(employee => employee.Date);
 
@@ -50,6 +52,7 @@ namespace SalaryCounter.Domain
         }
         public void GetGeneralReportForPeriod(Roles role, DateTime fromDate, DateTime toDate, bool isMounthly = false)
         {
+            FileIO fileIO = new FileIO();
             switch ((int)role)
             {
                 case 0:
@@ -64,7 +67,7 @@ namespace SalaryCounter.Domain
                             ShowAlert();
                         }
 
-                        var employeeReport = FileIO.GetReportsData((int)role).Where(employee => employee.Role == role && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
+                        var employeeReport = fileIO.GetReportsData((int)role).Where(employee => employee.Role == role && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
                                                             .Select(employee => new { Name = employee.Name, Date = employee.Date, WorkedHours = employee.WorkHours })
                                                             .OrderBy(employee => employee.Date)
                                                             .GroupBy(employee => employee.Name);
@@ -132,7 +135,7 @@ namespace SalaryCounter.Domain
                             ShowAlert();
                         }
 
-                        var employeeReport = FileIO.GetReportsData((int)role).Where(employee => employee.Role == role && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
+                        var employeeReport = fileIO.GetReportsData((int)role).Where(employee => employee.Role == role && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
                                                             .Select(employee => new { Name = employee.Name, Date = employee.Date, WorkedHours = employee.WorkHours })
                                                             .OrderBy(employee => employee.Date)
                                                             .GroupBy(employee => employee.Name);
@@ -207,7 +210,7 @@ namespace SalaryCounter.Domain
                             ShowAlert();
                         }
 
-                        var employeeReport = FileIO.GetReportsData((int)role).Where(employee => employee.Role == role && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
+                        var employeeReport = fileIO.GetReportsData((int)role).Where(employee => employee.Role == role && employee.Date.Ticks >= fromDate.Ticks && employee.Date.Ticks <= toDate.Ticks)
                                                             .Select(employee => new { Name = employee.Name, Date = employee.Date, WorkedHours = employee.WorkHours })
                                                             .OrderBy(employee => employee.Date)
                                                             .GroupBy(employee => employee.Name);
@@ -343,8 +346,10 @@ namespace SalaryCounter.Domain
 
             bool needToRemove = false;
             Employee employeeToAddReport = Employees.List.First(a => a.Passport == employeeID);
+            FileIO fileIO = new FileIO();
 
-            if (FileIO.GetReportsData((int)employeeToAddReport.Role).Select(report => report.Date.Day).Contains(date.Day))
+
+            if (fileIO.GetReportsData((int)employeeToAddReport.Role).Select(report => report.Date.Day).Contains(date.Day))
             {
                 Console.Write($"You have alredy sended report for {date:d}. \nPress \"Y\" if you want to Rewrite it or \"N\" to cancel changes ");
                 bool a = true;
@@ -374,7 +379,7 @@ namespace SalaryCounter.Domain
             {
                 Manager employee = new Manager(check.Passport, check.Name);
                 if (needToRemove)
-                    FileIO.DeleteReport((int)employee.Role, date.Day);
+                    fileIO.DeleteReport((int)employee.Role, date.Day);
                 employee.AddNewReport(date, workHours, comment, true);
             }
 
@@ -382,7 +387,7 @@ namespace SalaryCounter.Domain
             {
                 Worker employee = new Worker(check.Passport, check.Name);
                 if (needToRemove)
-                    FileIO.DeleteReport((int)employee.Role, date.Day);
+                    fileIO.DeleteReport((int)employee.Role, date.Day);
                 employee.AddNewReport(date, workHours, comment, true);
             }
 
@@ -390,7 +395,7 @@ namespace SalaryCounter.Domain
             {
                 Freelancer employee = new Freelancer(check.Passport, check.Name);
                 if (needToRemove)
-                    FileIO.DeleteReport((int)employee.Role, date.Day);
+                    fileIO.DeleteReport((int)employee.Role, date.Day);
                 employee.AddNewReport(date, workHours, comment, true);
             }
         }
@@ -423,10 +428,11 @@ namespace SalaryCounter.Domain
             int totalWorkHours = 0;
             string employeeName = default;
             Employee employee = Employees.List.First(item => item.Passport == employeeID);
-            var data = FileIO.GetReportsData((int)employee.Role).Where(data => data.ID == employeeID && data.Date.Ticks >= fromDate.Ticks && data.Date.Ticks <= toDate.Ticks).ToList();
+            FileIO fileIO = new FileIO();
+            var data = fileIO.GetReportsData((int)employee.Role).Where(data => data.ID == employeeID && data.Date.Ticks >= fromDate.Ticks && data.Date.Ticks <= toDate.Ticks).ToList();
             foreach (var conditionItem in data)
             {
-                Console.WriteLine($"{conditionItem.Date} {conditionItem.Name} worked for {conditionItem.WorkHours} his comment - {conditionItem.Comment}");
+                Console.WriteLine($"{conditionItem.Date:d} {conditionItem.Name} worked for {conditionItem.WorkHours} his comment - {conditionItem.Comment}");
                 totalWorkHours += conditionItem.WorkHours;
                 employeeName = conditionItem.Name;
             }

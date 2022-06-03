@@ -17,13 +17,14 @@ namespace SalaryCounter.Domain
         }
         public virtual void AddNewReport(DateTime date, byte workHours, string comment, bool isManager = false)
         {
+            FileIO fileIO = new FileIO();
             if (date > DateTime.Now)
             {
                 Console.WriteLine("No cheating! You cant create report for dates in future!");
                 return;
             }
 
-            if (!isManager && FileIO.GetReportsData((int)Role).Where(item => item.ID == Passport).Select(report => report.Date.Day).Contains(date.Day))
+            if (!isManager && fileIO.GetReportsData((int)Role).Where(item => item.ID == Passport).Select(report => report.Date.Day).Contains(date.Day))
             {
                 Console.WriteLine($"You have alredy sended report for {date:d}");
                 return;
@@ -37,7 +38,7 @@ namespace SalaryCounter.Domain
             }
 
             DailyReport report = new DailyReport(date, Passport, Name, (int)Role, workHours, comment);
-            FileIO.AddReport((int)Role, report);
+            fileIO.AddReport((int)Role, report);
             Console.WriteLine("Succesfully added!");
         }
         public virtual void GetReportForPeriod(DateTime fromDate, DateTime toDate, bool isMounthly = false) { }
@@ -51,7 +52,7 @@ namespace SalaryCounter.Domain
         }
         public void GetReportForMonth(int month)
         {
-            if (month < DateTime.Now.Month)
+            if (month > DateTime.Now.Month)
             {
                 Console.WriteLine("You try to get report about future month;");
                 return;

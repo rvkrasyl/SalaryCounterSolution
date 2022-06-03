@@ -1,11 +1,12 @@
-﻿using static SalaryCounter.Domain.Parameters;
+﻿using SalaryCounter.Domain.IOServices;
+using static SalaryCounter.Domain.Parameters;
 
 
 namespace SalaryCounter.Domain.FileIOServices
 {
-    public class FileIO
+    public class FileIO : IDataIO
     {
-        public static void AddReport(int role, DailyReport report)
+        public void AddReport(int role, DailyReport report)
         {
             string filePath = GetPath(role);
             if (filePath == "error")
@@ -20,7 +21,7 @@ namespace SalaryCounter.Domain.FileIOServices
                 streamWriter.WriteLine();
             }
         }
-        public static List<DailyReport> GetReportsData(int role)
+        public List<DailyReport> GetReportsData(int role)
         {
             string filePath = GetPath(role);
             if (filePath == "error")
@@ -39,7 +40,7 @@ namespace SalaryCounter.Domain.FileIOServices
             }
             return dailyReports;
         }
-        public static void AddEmployee(Employee employee)
+        public void AddEmployee(Employee employee)
         {
             using (StreamWriter streamWriter = new StreamWriter(EmployeeListFilePath, true))
             {
@@ -48,7 +49,7 @@ namespace SalaryCounter.Domain.FileIOServices
             }
 
         }
-        public static Employees GetAllEmployees()
+        public Employees GetAllEmployees()
         {
             Employees.List.Clear();
             using (StreamReader streamReader = new StreamReader(EmployeeListFilePath))
@@ -62,9 +63,9 @@ namespace SalaryCounter.Domain.FileIOServices
             }
             return new Employees();
         }
-        public static void DeleteReport(int role, int date)
+        public void DeleteReport(int role, int date)
         {
-            List<DailyReport> report = FileIO.GetReportsData(role).Where(a => a.Date.Day != date).ToList();
+            List<DailyReport> report = new FileIO().GetReportsData(role).Where(a => a.Date.Day != date).ToList();
 
             string filePath = GetPath(role);
             if (filePath == "error")
@@ -85,7 +86,7 @@ namespace SalaryCounter.Domain.FileIOServices
                 }
             }
         }
-        private static string GetPath(int role)
+        public string GetPath(int role)
         {
             string filePath = default;
             if (role == 0)
