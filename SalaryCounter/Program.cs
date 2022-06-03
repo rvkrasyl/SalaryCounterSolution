@@ -81,7 +81,7 @@ if (currentEmployee.Role == Roles.manager)
                                 {
                                     while(!roleCondition)
                                     {
-                                        Console.WriteLine("Press \"1\" to see report about all MANAGERS;Press \"2\" see report about all WORKERS;Press \"3\" to see report about all FREELANCERS");
+                                        Console.WriteLine("Press \"1\" to see report about all MANAGERS;\nPress \"2\" see report about all WORKERS;\nPress \"3\" to see report about all FREELANCERS");
                                         var roleKey = Console.ReadKey().Key;
 
                                         if (roleKey == ConsoleKey.D1 || roleKey == ConsoleKey.NumPad1)
@@ -109,7 +109,7 @@ if (currentEmployee.Role == Roles.manager)
                                 {
                                     while (!roleCondition)
                                     {
-                                        Console.WriteLine("Press \"1\" to see report about all MANAGERS;Press \"2\" see report about all WORKERS;Press \"3\" to see report about all FREELANCERS");
+                                        Console.WriteLine("Press \"1\" to see report about all MANAGERS;\nPress \"2\" see report about all WORKERS;\nPress \"3\" to see report about all FREELANCERS");
                                         var roleKey = Console.ReadKey().Key;
                                         if (roleKey == ConsoleKey.D1 || roleKey == ConsoleKey.NumPad1)
                                             role = 0;
@@ -136,7 +136,7 @@ if (currentEmployee.Role == Roles.manager)
                                 {
                                     while (!roleCondition)
                                     {
-                                        Console.WriteLine("Press \"1\" to see report about all MANAGERS;Press \"2\" see report about all WORKERS;Press \"3\" to see report about all FREELANCERS");
+                                        Console.WriteLine("Press \"1\" to see report about all MANAGERS;\nPress \"2\" see report about all WORKERS;\nPress \"3\" to see report about all FREELANCERS");
                                         var roleKey = Console.ReadKey().Key;
                                         if (roleKey == ConsoleKey.D1 || roleKey == ConsoleKey.NumPad1)
                                             role = 0;
@@ -163,7 +163,7 @@ if (currentEmployee.Role == Roles.manager)
                                 {
                                     while (!roleCondition)
                                     {
-                                        Console.WriteLine("Press \"1\" to see report about all MANAGERS;Press \"2\" see report about all WORKERS;Press \"3\" to see report about all FREELANCERS");
+                                        Console.WriteLine("Press \"1\" to see report about all MANAGERS;\nPress \"2\" see report about all WORKERS;\nPress \"3\" to see report about all FREELANCERS");
                                         var roleKey = Console.ReadKey().Key;
                                         if (roleKey == ConsoleKey.D1 || roleKey == ConsoleKey.NumPad1)
                                             role = 0;
@@ -265,7 +265,7 @@ if (currentEmployee.Role == Roles.manager)
                             case ConsoleKey.D1:
                                 {
                                     Console.Write("Please enter a date to see report (Example 01.01.2022): ");
-                                    currentEmployee.GetReportForDay(DateTime.Parse(Console.ReadLine()).Date);
+                                    manager.GetReportForDay(DateTime.Parse(Console.ReadLine()).Date);
 
                                     condition = ReportHandler.AnotherReportNeed(condition, ref periodCondition);
 
@@ -275,7 +275,7 @@ if (currentEmployee.Role == Roles.manager)
                             case ConsoleKey.D2:
                                 {
                                     Console.Write("Please enter a date from which you want to see Weekly report (Example 01.01.2022): ");
-                                    currentEmployee.GetReportForWeek(DateTime.Parse(Console.ReadLine()));
+                                    manager.GetReportForWeek(DateTime.Parse(Console.ReadLine()));
 
                                     condition = ReportHandler.AnotherReportNeed(condition, ref periodCondition);
 
@@ -285,7 +285,7 @@ if (currentEmployee.Role == Roles.manager)
                             case ConsoleKey.D3:
                                 {
                                     Console.Write("Please enter nu,ber of Month to see report (Example: \"01\" for January, \"11\" for November): ");
-                                    currentEmployee.GetReportForMonth(Convert.ToInt32(Console.ReadLine()));
+                                    manager.GetReportForMonth(Convert.ToInt32(Console.ReadLine()));
 
                                     condition = ReportHandler.AnotherReportNeed(condition, ref periodCondition);
 
@@ -298,7 +298,7 @@ if (currentEmployee.Role == Roles.manager)
                                     DateTime fromDate = DateTime.Parse(Console.ReadLine());
                                     Console.Write("Please enter a FROM date for report (Example 30.01.2022): ");
                                     DateTime toDate = DateTime.Parse(Console.ReadLine());
-                                    currentEmployee.GetReportForPeriod(fromDate, toDate);
+                                    manager.GetReportForPeriod(fromDate, toDate);
 
                                     condition = ReportHandler.AnotherReportNeed(condition, ref periodCondition);
 
