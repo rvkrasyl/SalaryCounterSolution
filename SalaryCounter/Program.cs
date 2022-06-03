@@ -1,5 +1,4 @@
 ﻿using SalaryCounter.Domain;
-using SalaryCounter.Domain.FileIOServices;
 using SalaryCounter.Program;
 
 Console.ForegroundColor = ConsoleColor.DarkBlue;
